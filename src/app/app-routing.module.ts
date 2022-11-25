@@ -4,7 +4,7 @@ import { AuthModule } from '@auth/auth.module';
 
 const routes: Routes = [
   {
-    path: 'register',
+    path: 'auth',
     loadChildren: (): Promise<any> =>
       import('@auth/auth.module').then(({ AuthModule }): AuthModule => AuthModule),
   },
