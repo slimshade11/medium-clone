@@ -1,14 +1,14 @@
 import { Component, OnInit, Self } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
-import { RegisterFormService } from '@auth/services/register-form.service';
-import { takeUntil } from 'rxjs';
 import { RegisterForm } from '@auth/models/register-form.model';
+import { RegisterFormService } from '@auth/services/register-form.service';
+import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'mc-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styles: [''],
   providers: [RegisterFormService],
 })
 export class RegisterComponent extends DestroyComponent implements OnInit {
@@ -19,12 +19,16 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
     this.registerFormService.buildForm();
     this.registerFormService
       .getForm$()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: form => (this.form = form),
+        next: (form) => (this.form = form),
       });
   }
 

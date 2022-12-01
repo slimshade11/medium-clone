@@ -10,7 +10,7 @@ export abstract class FormService {
   private _form!: FormGroup<any>;
   private _form$: BehaviorSubject<FormGroup<any>> = new BehaviorSubject<FormGroup<any>>(this._form);
 
-  abstract get config(): FormGroup<any>;
+  abstract get config(): any;
 
   public buildForm(): void {
     this._form = this.fb.group<any>(this.config);

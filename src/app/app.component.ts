@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'mc-root',
+  template: `<router-outlet></router-outlet>`,
+  styles: [''],
 })
-export class AppComponent {
-  title = 'medium-clone';
-}
+export class AppComponent {}
