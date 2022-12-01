@@ -25,7 +25,8 @@
       "@core/*": ["src/app/_core/*"],
       "@auth/*": ["src/app/modules/auth/*"],
       "@shared/*": ["src/app/modules/shared/*"],
-      "@standalone/*": ["src/app/standalone/*"]
+      "@standalone/*": ["src/app/standalone/*"],
+      "@store/*": ["src/app/store/*"]
     }
   },
   "angularCompilerOptions": {

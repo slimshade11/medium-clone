@@ -4,10 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { StoreModule } from '@ngrx/store';
+import { ROOT_REDUCERS } from '@store/root-reducer';
+
+const IMPORTS = [BrowserModule, AppRoutingModule, BrowserAnimationsModule, StoreModule.forRoot(ROOT_REDUCERS)];
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, StoreModule.forRoot({}, {})],
+  imports: [...IMPORTS],
   providers: [],
   bootstrap: [AppComponent],
 })

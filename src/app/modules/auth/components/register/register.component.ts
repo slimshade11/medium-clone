@@ -1,9 +1,11 @@
 import { Component, OnInit, Self } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AuthFacade } from '@auth/auth.facade';
 import { RegisterForm } from '@auth/models/register-form.model';
+import { User } from '@auth/models/user.model';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
-import { takeUntil } from 'rxjs';
+import { takeUntil, Observable } from 'rxjs';
 
 @Component({
   selector: 'mc-register',
@@ -14,7 +16,9 @@ import { takeUntil } from 'rxjs';
 export class RegisterComponent extends DestroyComponent implements OnInit {
   form!: FormGroup<RegisterForm>;
 
-  constructor(@Self() private registerFormService: RegisterFormService) {
+  user$: Observable<User> = this.authFacade.getUser$();
+
+  constructor(@Self() private registerFormService: RegisterFormService, private authFacade: AuthFacade) {
     super();
   }
 
@@ -33,6 +37,17 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form.value);
+    if (this.form?.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const payload: User = {
+      name: this.form.value.name!,
+      email: this.form.value.email!,
+      password: this.form.value.password!,
+    };
+
+    this.authFacade.register(payload);
   }
 }
