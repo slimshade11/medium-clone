@@ -1,10 +1,10 @@
-import { Component, OnInit, Self } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AuthFacade } from '@auth/auth.facade';
 import { RegisterFormGroup } from '@auth/models/register-form.model';
 import { RegisterPayload } from '@auth/models/register-payload.model';
-import { User } from '@auth/models/user.model';
-import { RegisterFormService } from '@auth/services/register-form.service';
+import { CurrentUser } from '@auth/models/user.model';
+import { BackendErrors } from '@core/models/backend-errors.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import { takeUntil, Observable } from 'rxjs';
 
@@ -12,32 +12,29 @@ import { takeUntil, Observable } from 'rxjs';
   selector: 'mc-register',
   templateUrl: './register.component.html',
   styles: [''],
-  providers: [RegisterFormService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent extends DestroyComponent implements OnInit {
-  form!: FormGroup<RegisterFormGroup>;
+  public currentUser$: Observable<CurrentUser | null> = this.authFacade.getCurrentUser$();
+  public isLoading$: Observable<boolean> = this.authFacade.getIsLoading$();
+  public errors$: Observable<BackendErrors | null> = this.authFacade.getErrors$();
 
-  user$: Observable<User> = this.authFacade.getUser$();
+  public form!: FormGroup<RegisterFormGroup>;
 
-  constructor(@Self() private registerFormService: RegisterFormService, private authFacade: AuthFacade) {
+  constructor(private authFacade: AuthFacade) {
     super();
   }
 
   ngOnInit(): void {
-    this.initializeForm();
-  }
-
-  initializeForm(): void {
-    this.registerFormService.buildForm();
-    this.registerFormService
-      .getForm$()
+    this.authFacade
+      .getRegisterForm$()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (form) => (this.form = form),
+        next: (form: FormGroup<RegisterFormGroup>) => (this.form = form),
       });
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.form?.invalid) {
       this.form.markAllAsTouched();
       return;

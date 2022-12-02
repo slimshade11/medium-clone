@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterPayload } from '@auth/models/register-payload.model';
 import { CurrentUser } from '@auth/models/user.model';
@@ -9,18 +10,18 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
-  register$ = createEffect(() =>
-    this.actions$.pipe(
+  register$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(ActionTypes.REGISTER),
-      tap(() => console.log(2)),
       switchMap((payload: RegisterPayload) => {
         return this.authService.register$(payload).pipe(
+          tap(() => console.log(payload)),
           map((currentUser: CurrentUser) => registerSuccess({ currentUser })),
-          catchError(() => of(registerFailure()))
+          catchError((errorResponse: HttpErrorResponse) => of(registerFailure({ errors: errorResponse.error.errors })))
         );
       })
-    )
-  );
+    );
+  });
 
   constructor(private actions$: Actions, private authService: AuthService) {}
 }

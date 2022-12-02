@@ -7,29 +7,30 @@ import { AuthFacade } from '@auth/auth.facade';
 import { AuthPanelComponent } from '@auth/components/auth-panel/auth-panel.component';
 import { AuthPanelContentComponent } from '@auth/components/auth-panel/components/auth-panel-content/auth-panel-content.component';
 import { AuthPanelHeaderComponent } from '@auth/components/auth-panel/components/auth-panel-header/auth-panel-header.component';
-import { AuthViewComponent } from '@auth/components/auth-view/auth-view.component';
 import { RegisterComponent } from '@auth/components/register/register.component';
+import { RegisterFormService } from '@auth/services/register-form.service';
 import { SharedModule } from '@shared/shared.module';
+import { BackendErrorMessagesComponent } from '@standalone/components/backend-error-messages/backend-error-messages.component';
 
-const DECLARATIONS: Array<Type<any>> = [
-  AuthViewComponent,
+const declarations: Array<Type<any>> = [
   RegisterComponent,
   AuthPanelComponent,
   AuthPanelHeaderComponent,
   AuthPanelContentComponent,
 ];
-const IMPORTS: Array<Type<any>> = [
+const imports: Array<Type<any>> = [
   CommonModule,
-  AuthRoutingModule,
   SharedModule,
   ReactiveFormsModule,
   HttpClientModule,
+  AuthRoutingModule,
+  BackendErrorMessagesComponent,
 ];
-const PROVIDERS: Array<Type<any>> = [AuthFacade];
+const providers: Array<Type<any>> = [AuthFacade, RegisterFormService];
 
 @NgModule({
-  declarations: [...DECLARATIONS],
-  imports: [...IMPORTS],
-  providers: [...PROVIDERS],
+  declarations,
+  imports,
+  providers,
 })
 export class AuthModule {}

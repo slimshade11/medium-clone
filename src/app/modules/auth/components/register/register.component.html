@@ -1,6 +1,8 @@
 <mc-auth-panel>
   <mc-auth-panel-header>Sign up</mc-auth-panel-header>
   <mc-auth-panel-content>
+    <mc-backend-error-messages></mc-backend-error-messages>
+
     <form
       [formGroup]="form"
       (ngSubmit)="onSubmit()">
@@ -29,6 +31,7 @@
         </mat-form-field>
       </div>
       <button
+        [disabled]="isLoading$ | async"
         class="w-full mt-5"
         type="submit"
         mat-stroked-button>
