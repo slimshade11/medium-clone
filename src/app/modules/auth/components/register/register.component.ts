@@ -1,7 +1,8 @@
 import { Component, OnInit, Self } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AuthFacade } from '@auth/auth.facade';
-import { RegisterForm } from '@auth/models/register-form.model';
+import { RegisterFormGroup } from '@auth/models/register-form.model';
+import { RegisterPayload } from '@auth/models/register-payload.model';
 import { User } from '@auth/models/user.model';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
@@ -14,7 +15,7 @@ import { takeUntil, Observable } from 'rxjs';
   providers: [RegisterFormService],
 })
 export class RegisterComponent extends DestroyComponent implements OnInit {
-  form!: FormGroup<RegisterForm>;
+  form!: FormGroup<RegisterFormGroup>;
 
   user$: Observable<User> = this.authFacade.getUser$();
 
@@ -42,7 +43,7 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
       return;
     }
 
-    const payload: User = {
+    const payload: RegisterPayload = {
       name: this.form.value.name!,
       email: this.form.value.email!,
       password: this.form.value.password!,

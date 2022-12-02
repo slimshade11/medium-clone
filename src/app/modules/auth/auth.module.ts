@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Type } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from '@auth/auth-routing.module';
@@ -8,7 +9,6 @@ import { AuthPanelContentComponent } from '@auth/components/auth-panel/component
 import { AuthPanelHeaderComponent } from '@auth/components/auth-panel/components/auth-panel-header/auth-panel-header.component';
 import { AuthViewComponent } from '@auth/components/auth-view/auth-view.component';
 import { RegisterComponent } from '@auth/components/register/register.component';
-import { AuthService } from '@auth/services/auth.service';
 import { SharedModule } from '@shared/shared.module';
 
 const DECLARATIONS: Array<Type<any>> = [
@@ -18,8 +18,14 @@ const DECLARATIONS: Array<Type<any>> = [
   AuthPanelHeaderComponent,
   AuthPanelContentComponent,
 ];
-const IMPORTS: Array<Type<any>> = [CommonModule, AuthRoutingModule, SharedModule, ReactiveFormsModule];
-const PROVIDERS: Array<Type<any>> = [AuthFacade, AuthService];
+const IMPORTS: Array<Type<any>> = [
+  CommonModule,
+  AuthRoutingModule,
+  SharedModule,
+  ReactiveFormsModule,
+  HttpClientModule,
+];
+const PROVIDERS: Array<Type<any>> = [AuthFacade];
 
 @NgModule({
   declarations: [...DECLARATIONS],

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { Validators, FormGroup } from '@angular/forms';
+import { RegisterFormGroup } from '@auth/models/register-form.model';
 import { FormService } from '@core/sevices/form.service';
 
 @Injectable()
 export class RegisterFormService extends FormService {
-  get config(): any {
-    return {
+  get config(): FormGroup<RegisterFormGroup> {
+    return this.fb.group({
       name: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      dwa: [''],
-    };
+    }) as FormGroup<RegisterFormGroup>;
   }
 }

@@ -6,6 +6,7 @@ export const featureKey = 'auth';
 
 export interface State {
   user: User;
+  isLoading: boolean;
 }
 
 const initialState: State = {
@@ -15,12 +16,16 @@ const initialState: State = {
     email: '',
     password: '',
   },
+  isLoading: false,
 };
 
 export const reducer = createReducer(
   initialState,
 
-  on(register, (state: State, { user }) => {
-    return { ...state, user };
+  on(register, (state: State, { payload }) => {
+    return { ...state, user: payload };
+  }),
+  on(register, (state: State, { payload }) => {
+    return { ...state, user: payload };
   })
 );
