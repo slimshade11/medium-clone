@@ -40,7 +40,7 @@ export class AuthFacade {
     return this.registerFormService.getForm$();
   }
 
-  public register(payload: RegisterPayload): void {
-    this.store.dispatch(register({ payload }));
+  public register(registerPayload: RegisterPayload): void {
+    this.store.dispatch(register({ registerPayload }));
   }
 }

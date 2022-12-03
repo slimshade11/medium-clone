@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BASE_URL: 'https://conduit.productionready.io',
+  BASE_URL: 'https://conduit.productionready.io/api',
 };

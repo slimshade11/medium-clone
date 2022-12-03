@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { AuthFacade } from '@auth/auth.facade';
 import { RegisterFormGroup } from '@auth/models/register-form.model';
 import { RegisterPayload } from '@auth/models/register-payload.model';
@@ -41,11 +41,21 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
     }
 
     const payload: RegisterPayload = {
-      name: this.form.value.name!,
-      email: this.form.value.email!,
-      password: this.form.value.password!,
+      user: { username: this.form.value.username!, email: this.form.value.email!, password: this.form.value.password! },
     };
 
     this.authFacade.register(payload);
+  }
+
+  get name() {
+    return this.form.get('username') as FormControl<string>;
+  }
+
+  get email() {
+    return this.form.get('email') as FormControl<string>;
+  }
+
+  get password() {
+    return this.form.get('password') as FormControl<string>;
   }
 }

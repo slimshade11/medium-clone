@@ -1,42 +1,51 @@
-<mc-auth-panel>
-  <mc-auth-panel-header>Sign up</mc-auth-panel-header>
-  <mc-auth-panel-content>
-    <mc-backend-error-messages></mc-backend-error-messages>
-
-    <form
-      [formGroup]="form"
-      (ngSubmit)="onSubmit()">
-      <div>
-        <mat-form-field class="mt-8 w-full">
-          <mat-label>Username</mat-label>
-          <input
-            matInput
-            formControlName="name" />
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field class="mt-2 w-full">
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            formControlName="email" />
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field class="mt-2 w-full">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            formControlName="password" />
-        </mat-form-field>
-      </div>
-      <button
-        [disabled]="isLoading$ | async"
-        class="w-full mt-5"
-        type="submit"
-        mat-stroked-button>
-        Sign up
-      </button>
-    </form>
-  </mc-auth-panel-content>
-</mc-auth-panel>
+<div class="flex items-center justify-center h-screen">
+  <div class="w-full max-w-lg p-5">
+    <mc-auth-panel>
+      <mc-auth-panel-header>Sign up</mc-auth-panel-header>
+      <mc-auth-panel-content>
+        <div class="mt-5">
+          <mc-backend-error-messages
+            *ngIf="errors$ | async as errors"
+            [backendErrors]="errors">
+          </mc-backend-error-messages>
+        </div>
+        <form
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()">
+          <div>
+            <mat-form-field class="mt-8 w-full">
+              <mat-label>Username</mat-label>
+              <input
+                matInput
+                formControlName="username" />
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="mt-2 w-full">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                formControlName="email" />
+              <mat-error *ngIf="email.errors?.['email']">Invalid email format</mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="mt-2 w-full">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                formControlName="password" />
+            </mat-form-field>
+          </div>
+          <button
+            [disabled]="isLoading$ | async"
+            class="w-full mt-5"
+            type="submit"
+            mat-stroked-button>
+            Sign up
+          </button>
+        </form>
+      </mc-auth-panel-content>
+    </mc-auth-panel>
+  </div>
+</div>

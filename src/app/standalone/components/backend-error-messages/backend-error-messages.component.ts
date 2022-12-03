@@ -1,12 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BackendErrors } from '@core/models/backend-errors.model';
 
 @Component({
   selector: 'mc-backend-error-messages',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './backend-error-messages.component.html',
-  styleUrls: ['./backend-error-messages.component.scss'],
+  imports: [CommonModule, MatFormFieldModule],
+  template: `
+    <div class="flex flex-col">
+      <div
+        *ngFor="let error of errorMessages"
+        class="mb-3">
+        <mat-error>{{ error }}</mat-error>
+      </div>
+    </div>
+  `,
+  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BackendErrorMessagesComponent {}
+export class BackendErrorMessagesComponent implements OnInit {
+  @Input() backendErrors!: BackendErrors;
+
+  errorMessages: Array<string> = [];
+
+  ngOnInit(): void {
+    this.errorMessages = Object.keys(this.backendErrors).map((name: string): string => {
+      const messages = this.backendErrors[name].join(' ');
+      return `${name} ${messages}`;
+    });
+  }
+}

@@ -7,7 +7,7 @@ import { FormService } from '@core/sevices/form.service';
 export class RegisterFormService extends FormService {
   get config(): FormGroup<RegisterFormGroup> {
     return this.fb.group({
-      name: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     }) as FormGroup<RegisterFormGroup>;

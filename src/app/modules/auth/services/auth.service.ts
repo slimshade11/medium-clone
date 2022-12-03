@@ -15,8 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register$(payload: RegisterPayload): Observable<CurrentUser> {
-    return this.http
-      .post<AuthResponse>(`${this.BASE_URL}/api/users`, payload)
-      .pipe(map(({ user }: AuthResponse) => user));
+    console.log(payload);
+    return this.http.post<AuthResponse>(`${this.BASE_URL}/users`, payload).pipe(map(({ user }: AuthResponse) => user));
   }
 }
