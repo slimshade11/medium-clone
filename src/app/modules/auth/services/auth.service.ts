@@ -6,16 +6,15 @@ import { CurrentUser } from '@auth/models/user.model';
 import { map, Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
   BASE_URL = env.BASE_URL;
 
   constructor(private http: HttpClient) {}
 
-  register$(payload: RegisterPayload): Observable<CurrentUser> {
-    console.log(payload);
-    return this.http.post<AuthResponse>(`${this.BASE_URL}/users`, payload).pipe(map(({ user }: AuthResponse) => user));
+  register$(registerPayload: RegisterPayload): Observable<CurrentUser> {
+    return this.http
+      .post<AuthResponse>(`${this.BASE_URL}/users`, registerPayload)
+      .pipe(map(({ user }: AuthResponse) => user));
   }
 }

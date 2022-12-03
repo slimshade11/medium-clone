@@ -8,6 +8,7 @@ import { AuthPanelComponent } from '@auth/components/auth-panel/auth-panel.compo
 import { AuthPanelContentComponent } from '@auth/components/auth-panel/components/auth-panel-content/auth-panel-content.component';
 import { AuthPanelHeaderComponent } from '@auth/components/auth-panel/components/auth-panel-header/auth-panel-header.component';
 import { RegisterComponent } from '@auth/components/register/register.component';
+import { AuthService } from '@auth/services/auth.service';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { SharedModule } from '@shared/shared.module';
 import { BackendErrorMessagesComponent } from '@standalone/components/backend-error-messages/backend-error-messages.component';
@@ -26,7 +27,7 @@ const imports: Array<Type<any>> = [
   AuthRoutingModule,
   BackendErrorMessagesComponent,
 ];
-const providers: Array<Type<any>> = [AuthFacade, RegisterFormService];
+const providers: Array<Type<any>> = [AuthFacade, RegisterFormService, AuthService];
 
 @NgModule({
   declarations,
