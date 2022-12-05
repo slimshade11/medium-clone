@@ -11,18 +11,17 @@ import { BackendErrors } from '@core/models/backend-errors.model';
     <div class="flex flex-col">
       <div
         *ngFor="let error of errorMessages"
-        class="mb-3">
+        class="mb-2">
         <mat-error>{{ error }}</mat-error>
       </div>
     </div>
   `,
-  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackendErrorMessagesComponent implements OnInit {
   @Input() backendErrors!: BackendErrors;
 
-  errorMessages: Array<string> = [];
+  errorMessages: string[] = [];
 
   ngOnInit(): void {
     this.errorMessages = Object.keys(this.backendErrors).map((name: string): string => {

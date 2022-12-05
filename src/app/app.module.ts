@@ -10,7 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthEffects } from '@store/auth/auth.effects';
 import { ROOT_REDUCERS } from '@store/root-reducer';
 
-const declarations: Array<Type<any>> = [AppComponent];
+const COMPONENTS: Array<Type<unknown>> = [AppComponent];
 
 const imports = [
   BrowserModule,
@@ -26,10 +26,10 @@ const imports = [
   StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   EffectsModule.forRoot([AuthEffects]),
 ];
-const providers: Array<Type<any>> = [];
+const providers: Array<Type<unknown>> = [];
 
 @NgModule({
-  declarations,
+  declarations: COMPONENTS,
   imports,
   providers,
   bootstrap: [AppComponent],

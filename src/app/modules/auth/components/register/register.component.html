@@ -11,12 +11,14 @@
         </div>
         <form
           [formGroup]="form"
-          (ngSubmit)="onSubmit()">
+          (ngSubmit)="onSubmit()"
+          autocomplete="off">
           <div>
-            <mat-form-field class="mt-8 w-full">
+            <mat-form-field class="mt-4 w-full">
               <mat-label>Username</mat-label>
               <input
                 matInput
+                type="text"
                 formControlName="username" />
             </mat-form-field>
           </div>
@@ -25,6 +27,7 @@
               <mat-label>Email</mat-label>
               <input
                 matInput
+                type="email"
                 formControlName="email" />
               <mat-error *ngIf="email.errors?.['email']">Invalid email format</mat-error>
             </mat-form-field>
@@ -34,6 +37,7 @@
               <mat-label>Password</mat-label>
               <input
                 matInput
+                type="password"
                 formControlName="password" />
             </mat-form-field>
           </div>

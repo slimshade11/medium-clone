@@ -6,9 +6,11 @@ import { CurrentUser } from '@auth/models/user.model';
 import { map, Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
-  BASE_URL = env.BASE_URL;
+  readonly BASE_URL = env.BASE_URL;
 
   constructor(private http: HttpClient) {}
 

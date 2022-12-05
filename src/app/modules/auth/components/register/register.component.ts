@@ -11,7 +11,6 @@ import { takeUntil, Observable } from 'rxjs';
 @Component({
   selector: 'mc-register',
   templateUrl: './register.component.html',
-  styles: [''],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent extends DestroyComponent implements OnInit {
@@ -41,7 +40,11 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
     }
 
     const payload: RegisterPayload = {
-      user: { username: this.form.value.username!, email: this.form.value.email!, password: this.form.value.password! },
+      user: {
+        username: this.form.value.username!,
+        email: this.form.value.email!,
+        password: this.form.value.password!,
+      },
     };
 
     this.authFacade.register(payload);
