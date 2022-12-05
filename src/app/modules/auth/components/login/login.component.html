@@ -14,15 +14,6 @@
           (ngSubmit)="onSubmit()"
           autocomplete="off">
           <div>
-            <mat-form-field class="mt-4 w-full">
-              <mat-label>Username</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="username" />
-            </mat-form-field>
-          </div>
-          <div>
             <mat-form-field class="mt-2 w-full">
               <mat-label>Email</mat-label>
               <input
@@ -42,7 +33,7 @@
             </mat-form-field>
           </div>
           <div class="my-3">
-            <a routerLink="/login">Have an account?</a>
+            <a routerLink="/register">Need an account?</a>
           </div>
           <button
             [disabled]="isLoading$ | async"

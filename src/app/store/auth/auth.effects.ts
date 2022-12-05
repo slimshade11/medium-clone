@@ -57,14 +57,17 @@ export class AuthEffects {
     );
   });
 
-  public redirectAfterLoginSubmit$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(loginSuccess),
-      tap((): void => {
-        this.router.navigateByUrl('/');
-      })
-    );
-  });
+  public redirectAfterLoginSubmit$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(loginSuccess),
+        tap((): void => {
+          this.router.navigateByUrl('/');
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
   constructor(
     private actions$: Actions,

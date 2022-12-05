@@ -11,14 +11,17 @@ import { RegisterComponent } from '@auth/components/register/register.component'
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { SharedModule } from '@shared/shared.module';
 import { BackendErrorMessagesComponent } from '@standalone/components/backend-error-messages/backend-error-messages.component';
+import { LoginComponent } from './components/login/login.component';
+import { LoginFormService } from './services/login-form.service';
 
-const declarations: Array<Type<any>> = [
+const COMPONENTS: Array<Type<any>> = [
   RegisterComponent,
   AuthPanelComponent,
   AuthPanelHeaderComponent,
   AuthPanelContentComponent,
+  LoginComponent,
 ];
-const imports: Array<Type<any>> = [
+const MODULES: Array<Type<any>> = [
   CommonModule,
   SharedModule,
   ReactiveFormsModule,
@@ -26,11 +29,11 @@ const imports: Array<Type<any>> = [
   AuthRoutingModule,
   BackendErrorMessagesComponent,
 ];
-const providers: Array<Type<any>> = [AuthFacade, RegisterFormService];
+const SERVICES: Array<Type<any>> = [AuthFacade, RegisterFormService, LoginFormService];
 
 @NgModule({
-  declarations,
-  imports,
-  providers,
+  declarations: COMPONENTS,
+  imports: MODULES,
+  providers: [...SERVICES],
 })
 export class AuthModule {}

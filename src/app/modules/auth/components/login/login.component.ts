@@ -1,22 +1,23 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { AuthFacade } from '@auth/auth.facade';
-import { RegisterFormGroup } from '@auth/models/register-form.model';
-import { RegisterPayload } from '@auth/models/register-payload.model';
+import { LoginFormGroup } from '@auth/models/login-form.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
-import { takeUntil, Observable } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
+import { LoginPayload } from '../../models/login-payload.model';
 
 @Component({
-  selector: 'mc-register',
-  templateUrl: './register.component.html',
+  selector: 'mc-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent extends DestroyComponent implements OnInit {
+export class LoginComponent extends DestroyComponent implements OnInit {
   public isLoading$: Observable<boolean> = this.authFacade.getIsLoading$();
   public errors$: Observable<BackendErrors | null> = this.authFacade.getErrors$();
 
-  public form!: FormGroup<RegisterFormGroup>;
+  public form!: FormGroup<LoginFormGroup>;
 
   constructor(private authFacade: AuthFacade) {
     super();
@@ -24,10 +25,10 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
 
   ngOnInit(): void {
     this.authFacade
-      .getRegisterForm$()
+      .getLoginForm$()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (form: FormGroup<RegisterFormGroup>): void => {
+        next: (form: FormGroup<LoginFormGroup>): void => {
           this.form = form;
         },
       });
@@ -39,19 +40,11 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
       return;
     }
 
-    const payload: RegisterPayload = {
-      user: {
-        username: this.form.value.username!,
-        email: this.form.value.email!,
-        password: this.form.value.password!,
-      },
+    const payload: LoginPayload = {
+      user: { email: this.form.value.email!, password: this.form.value.password! },
     };
 
-    this.authFacade.register(payload);
-  }
-
-  get name() {
-    return this.form.get('username') as FormControl<string>;
+    this.authFacade.login(payload);
   }
 
   get email() {
