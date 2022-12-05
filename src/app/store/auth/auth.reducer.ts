@@ -1,8 +1,14 @@
 import { CurrentUser } from '@auth/models/user.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { createReducer, on } from '@ngrx/store';
-import { register } from '@store/auth/auth.actions';
-import { registerSuccess, registerFailure } from './auth.actions';
+import {
+  login,
+  loginFailure,
+  registerSuccess,
+  registerFailure,
+  loginSuccess,
+  register,
+} from '@store/auth/auth.actions';
 
 export const featureKey = 'auth';
 
@@ -29,6 +35,15 @@ export const reducer = createReducer(
     return { ...state, isLoading: false, isLoggedIn: true, currentUser };
   }),
   on(registerFailure, (state, { errors }): State => {
+    return { ...state, isLoading: false, errors };
+  }),
+  on(login, (state): State => {
+    return { ...state, isLoading: true, errors: null };
+  }),
+  on(loginSuccess, (state, { currentUser }): State => {
+    return { ...state, isLoading: false, isLoggedIn: true, currentUser };
+  }),
+  on(loginFailure, (state, { errors }): State => {
     return { ...state, isLoading: false, errors };
   })
 );
