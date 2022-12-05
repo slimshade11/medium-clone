@@ -7,3 +7,4 @@ export const currentUser = createSelector(authState, ({ currentUser }) => curren
 export const isLoading = createSelector(authState, ({ isLoading }) => isLoading);
 export const isLoggedIn = createSelector(authState, ({ isLoggedIn }) => isLoggedIn);
 export const errors = createSelector(authState, ({ errors }) => errors);
+export const isAnonymous = createSelector(authState, ({ isLoggedIn }) => isLoggedIn === false);

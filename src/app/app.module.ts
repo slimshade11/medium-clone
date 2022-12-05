@@ -7,12 +7,13 @@ import { AppComponent } from '@app/app.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { SharedModule } from '@shared/shared.module';
 import { AuthEffects } from '@store/auth/auth.effects';
 import { ROOT_REDUCERS } from '@store/root-reducer';
 
 const COMPONENTS: Array<Type<unknown>> = [AppComponent];
 
-const imports = [
+const MODULES: Array<any> = [
   BrowserModule,
   AppRoutingModule,
   BrowserAnimationsModule,
@@ -25,13 +26,14 @@ const imports = [
   }),
   StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   EffectsModule.forRoot([AuthEffects]),
+  SharedModule,
 ];
-const providers: Array<Type<unknown>> = [];
+const SERVICES: Array<Type<unknown>> = [];
 
 @NgModule({
   declarations: COMPONENTS,
-  imports,
-  providers,
+  imports: [...MODULES],
+  providers: SERVICES,
   bootstrap: [AppComponent],
 })
 export class AppModule {}
