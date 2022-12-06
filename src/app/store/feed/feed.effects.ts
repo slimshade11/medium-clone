@@ -6,7 +6,7 @@ import { getFeed, getFeedFailure, getFeedSuccess } from '@store/feed/feed.action
 import { map, switchMap, catchError, of } from 'rxjs';
 
 @Injectable()
-export class GetFeedEffect {
+export class FeedEffects {
   getFeed$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(getFeed),

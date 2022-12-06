@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SharedModule } from '@shared/shared.module';
 import { AuthEffects } from '@store/auth/auth.effects';
+import { FeedEffects } from '@store/feed/feed.effects';
 import { ROOT_REDUCERS } from '@store/root-reducer';
 
 const COMPONENTS: Array<Type<unknown>> = [AppComponent];
@@ -26,7 +27,7 @@ const MODULES: Array<any> = [
     autoPause: true,
   }),
   StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-  EffectsModule.forRoot([AuthEffects]),
+  EffectsModule.forRoot([AuthEffects, FeedEffects]),
   SharedModule,
 ];
 const INTERCEPTORS: Array<any> = [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }];
