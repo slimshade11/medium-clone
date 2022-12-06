@@ -1,7 +1,7 @@
 <div class="p-3 flex justify-between">
   <a
     [routerLink]="['/']"
-    class="text-2xl block">
+    class="text-2xl flex items-center">
     Medium-clone
   </a>
   <div>
@@ -27,7 +27,7 @@
           [routerLink]="['/settings']"
           mat-menu-item>
           <mat-icon>settings</mat-icon>
-          <span>New post</span>
+          <span>Settings</span>
         </button>
         <button
           [routerLink]="['/profiles', (currentUser$ | async)!.username]"

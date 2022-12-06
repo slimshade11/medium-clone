@@ -20,7 +20,11 @@ export class AuthService {
   }
 
   login$(loginPayload: LoginPayload): Observable<CurrentUser> {
-    return this.http.post<any>(`${this.BASE_URL}/users/login`, loginPayload).pipe(map(this.getUser));
+    return this.http.post<AuthResponse>(`${this.BASE_URL}/users/login`, loginPayload).pipe(map(this.getUser));
+  }
+
+  getCurrentUser$(): Observable<CurrentUser> {
+    return this.http.get<AuthResponse>(`${this.BASE_URL}/user`).pipe(map(this.getUser));
   }
 
   getUser({ user }: AuthResponse): CurrentUser {

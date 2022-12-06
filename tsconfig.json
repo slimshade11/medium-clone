@@ -25,6 +25,7 @@
       "@core/*": ["src/app/_core/*"],
       "@auth/*": ["src/app/modules/auth/*"],
       "@shared/*": ["src/app/modules/shared/*"],
+      "@feed/*": ["src/app/modules/feed/*"],
       "@standalone/*": ["src/app/standalone/*"],
       "@store/*": ["src/app/store/*"]
     }

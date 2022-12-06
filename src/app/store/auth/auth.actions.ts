@@ -12,3 +12,10 @@ export const registerFailure = createAction(ActionTypes.REGISTER_ERROR, props<{ 
 export const login = createAction(ActionTypes.LOGIN, props<{ loginPayload: LoginPayload }>());
 export const loginSuccess = createAction(ActionTypes.LOGIN_SUCCESS, props<{ currentUser: CurrentUser }>());
 export const loginFailure = createAction(ActionTypes.LOGIN_FAILURE, props<{ errors: BackendErrors }>());
+
+export const getCurrentUser = createAction(ActionTypes.GET_CURRENT_USER);
+export const getCurrentUserSuccess = createAction(
+  ActionTypes.GET_CURRENT_USER_SUCCESS,
+  props<{ currentUser: CurrentUser }>()
+);
+export const getCurrentUserFailure = createAction(ActionTypes.GET_CURRENT_USER_FAILURE);

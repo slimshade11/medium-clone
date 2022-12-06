@@ -9,6 +9,7 @@ import {
   loginSuccess,
   register,
 } from '@store/auth/auth.actions';
+import { getCurrentUser, getCurrentUserSuccess, getCurrentUserFailure } from './auth.actions';
 
 export const featureKey = 'auth';
 
@@ -45,5 +46,14 @@ export const reducer = createReducer(
   }),
   on(loginFailure, (state, { errors }): State => {
     return { ...state, isLoading: false, errors };
+  }),
+  on(getCurrentUser, (state): State => {
+    return { ...state, isLoading: true };
+  }),
+  on(getCurrentUserSuccess, (state, { currentUser }): State => {
+    return { ...state, isLoading: false, isLoggedIn: true, currentUser };
+  }),
+  on(getCurrentUserFailure, (state): State => {
+    return { ...state, isLoading: false, isLoggedIn: false, currentUser: null };
   })
 );

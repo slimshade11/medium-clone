@@ -1,9 +1,10 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, isDevMode, Type } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
+import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -28,12 +29,12 @@ const MODULES: Array<any> = [
   EffectsModule.forRoot([AuthEffects]),
   SharedModule,
 ];
-const SERVICES: Array<Type<unknown>> = [];
+const INTERCEPTORS: Array<any> = [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }];
 
 @NgModule({
   declarations: COMPONENTS,
   imports: [...MODULES],
-  providers: SERVICES,
+  providers: [...INTERCEPTORS],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -6,9 +6,14 @@ import { AuthService } from '@auth/services/auth.service';
 import { PersistanceService } from '@core/sevices/persistance.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionTypes } from '@store/auth/action-types';
-import { registerSuccess, registerFailure } from '@store/auth/auth.actions';
+import {
+  registerSuccess,
+  registerFailure,
+  getCurrentUserSuccess,
+  getCurrentUserFailure,
+} from '@store/auth/auth.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { login, loginSuccess, loginFailure } from './auth.actions';
+import { login, loginSuccess, loginFailure, getCurrentUser } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -68,6 +73,27 @@ export class AuthEffects {
     },
     { dispatch: false }
   );
+
+  public getCurrentUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(getCurrentUser),
+      switchMap(() => {
+        const token = this.persistanceService.get('accessToken');
+        if (!token) {
+          return of(getCurrentUserFailure());
+        }
+
+        return this.authService.getCurrentUser$().pipe(
+          map((currentUser: CurrentUser) => {
+            return getCurrentUserSuccess({ currentUser });
+          }),
+          catchError(() => {
+            return of(getCurrentUserFailure());
+          })
+        );
+      })
+    );
+  });
 
   constructor(
     private actions$: Actions,

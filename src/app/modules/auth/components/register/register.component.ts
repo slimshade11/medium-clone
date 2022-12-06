@@ -16,6 +16,7 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
   public isLoading$: Observable<boolean> = this.authFacade.getIsLoading$();
   public errors$: Observable<BackendErrors | null> = this.authFacade.getErrors$();
 
+  public hide = true;
   public form!: FormGroup<RegisterFormGroup>;
 
   constructor(private authFacade: AuthFacade) {
