@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FeedViewComponent } from '@feed/feed-view/feed-view.component';
+import { FeedViewComponent } from '@standalone/components/feed-view/feed-view.component';
 
 const routes: Routes = [
   {
