@@ -9,7 +9,7 @@ import { getCurrentUser } from '@store/auth/auth.actions';
       <div class="menu">
         <mc-top-bar></mc-top-bar>
       </div>
-      <div class="content">
+      <div class="content overflow-x-hidden">
         <router-outlet></router-outlet>
       </div>
     </div>

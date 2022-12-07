@@ -1,3 +1,58 @@
-<pre>
-  {{ feed$ | async | json }}
-</pre>
+<mc-spinner *ngIf="isLoading$ | async"></mc-spinner>
+
+<div *ngIf="error$ | async">Some error happened...</div>
+
+<ng-container *ngIf="feed$ | async as feed">
+  <ng-container *ngIf="feed.articles.length; else emptyList">
+    <div
+      *ngFor="let article of feed?.articles"
+      class="mb-7">
+      <mat-card>
+        <mat-card-content>
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex">
+              <a
+                [routerLink]="['/profiles', article.author.username]"
+                class="mr-3">
+                <img
+                  [src]="article.author.image"
+                  class="w-12 rounded-xl" />
+              </a>
+              <div>
+                <a
+                  [routerLink]="['/profiles', article.author.username]"
+                  class="block font-semibold hover:underline">
+                  {{ article.author.username }}
+                </a>
+                <span class="text-gray-500">{{ article.createdAt | date }}</span>
+              </div>
+            </div>
+            <button
+              mat-button
+              color="primary"
+              class="p-4">
+              ADD TO FAVORITES
+            </button>
+          </div>
+          <a
+            [routerLink]="['/aricles', article.slug]"
+            class="block mb-5">
+            <h1>{{ article.title }}</h1>
+            <p>{{ article.description }}</p>
+            <span class="text-gray-400">Read more..</span>
+            HERE LIST OF TAGS
+          </a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+  PAGINATION
+</ng-container>
+
+<ng-template #emptyList>
+  <mat-card>
+    <mat-card-content>
+      <p class="text-center">Feed list is empty...</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

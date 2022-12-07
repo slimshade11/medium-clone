@@ -5,6 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
 
 export const AngularMaterialModules: Array<Type<any>> = [
   MatButtonModule,
@@ -13,4 +15,6 @@ export const AngularMaterialModules: Array<Type<any>> = [
   MatInputModule,
   MatMenuModule,
   MatIconModule,
+  MatTabsModule,
+  MatProgressSpinnerModule,
 ];
