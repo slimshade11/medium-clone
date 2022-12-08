@@ -7,12 +7,12 @@ import { AuthFacade } from '@auth/auth.facade';
 import { AuthPanelComponent } from '@auth/components/auth-panel/auth-panel.component';
 import { AuthPanelContentComponent } from '@auth/components/auth-panel/components/auth-panel-content/auth-panel-content.component';
 import { AuthPanelHeaderComponent } from '@auth/components/auth-panel/components/auth-panel-header/auth-panel-header.component';
+import { LoginComponent } from '@auth/components/login/login.component';
 import { RegisterComponent } from '@auth/components/register/register.component';
+import { LoginFormService } from '@auth/services/login-form.service';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { SharedModule } from '@shared/shared.module';
 import { BackendErrorMessagesComponent } from '@standalone/components/backend-error-messages/backend-error-messages.component';
-import { LoginComponent } from './components/login/login.component';
-import { LoginFormService } from './services/login-form.service';
 
 const COMPONENTS: Array<Type<any>> = [
   RegisterComponent,

@@ -79,6 +79,7 @@ export class AuthEffects {
       ofType(getCurrentUser),
       switchMap(() => {
         const token = this.persistanceService.get('accessToken');
+
         if (!token) {
           return of(getCurrentUserFailure());
         }

@@ -6,11 +6,11 @@ import { FeedModule } from '@feed/feed.module';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: (): Promise<any> => import('@auth/auth.module').then(({ AuthModule }): AuthModule => AuthModule),
+    loadChildren: (): Promise<any> => import('@feed/feed.module').then(({ FeedModule }): FeedModule => FeedModule),
   },
   {
-    path: 'feed',
-    loadChildren: (): Promise<any> => import('@feed/feed.module').then(({ FeedModule }): FeedModule => FeedModule),
+    path: 'login',
+    loadChildren: (): Promise<any> => import('@auth/auth.module').then(({ AuthModule }): AuthModule => AuthModule),
   },
 ];
 

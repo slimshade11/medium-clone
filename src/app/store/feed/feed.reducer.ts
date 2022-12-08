@@ -1,7 +1,6 @@
 import { GetFeedResponse } from '@feed/models/getFeedResponse.model';
 import { createReducer, on } from '@ngrx/store';
-import { getFeedFailure, getFeedSuccess } from '@store/feed/feed.actions';
-import { getFeed } from './feed.actions';
+import { getFeed, getFeedFailure, getFeedSuccess } from '@store/feed/feed.actions';
 export const featureKey = 'feed';
 
 export interface State {

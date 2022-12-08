@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BackendErrors } from '@core/models/backend-errors.model';
 
@@ -16,7 +16,6 @@ import { BackendErrors } from '@core/models/backend-errors.model';
       </div>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackendErrorMessagesComponent implements OnInit {
   @Input() backendErrors!: BackendErrors;

@@ -4,13 +4,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RouterModule } from '@angular/router';
-import { GetFeedResponse } from '@app/modules/feed/models/getFeedResponse.model';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
+import { GetFeedResponse } from '@feed/models/getFeedResponse.model';
 import { Store } from '@ngrx/store';
+import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
+import { PaginatorComponent } from '@standalone/components/paginator/paginator.component';
 import { SpinnerComponent } from '@standalone/components/spinner/spinner.component';
 import { getFeed } from '@store/feed/feed.actions';
 import { feedData, isLoading, error } from '@store/feed/feed.selectors';
-import { Observable } from 'rxjs';
+import { Observable, takeUntil } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'mc-feed',
@@ -23,20 +26,32 @@ import { Observable } from 'rxjs';
     SpinnerComponent,
     MatCardModule,
     MatButtonModule,
+    PaginatorComponent,
   ],
   templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.scss'],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent extends DestroyComponent implements OnInit {
   @Input() apiUrl!: string;
 
-  feed$: Observable<GetFeedResponse | null> = this.store.select(feedData);
-  isLoading$: Observable<boolean> = this.store.select(isLoading);
-  error$: Observable<string | null> = this.store.select(error);
+  public feed$: Observable<GetFeedResponse | null> = this.store.select(feedData);
+  public isLoading$: Observable<boolean> = this.store.select(isLoading);
+  public error$: Observable<string | null> = this.store.select(error);
 
-  constructor(private store: Store) {}
+  public limit: number = environment.limit;
+  public baseUrl: string = this.router.url.split('?')[0];
+  public currentPage: number = 0;
+
+  constructor(private store: Store, private router: Router, private activatedRoute: ActivatedRoute) {
+    super();
+  }
 
   ngOnInit(): void {
     this.store.dispatch(getFeed({ url: this.apiUrl }));
+
+    this.activatedRoute.queryParams.pipe(takeUntil(this.destroy$)).subscribe({
+      next: (params: Params): void => {
+        this.currentPage = Number(params['page'] || '1');
+      },
+    });
   }
 }

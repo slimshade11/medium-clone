@@ -1,15 +1,14 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'mc-spinner',
   template: `
-    <div class="flex justify-center items-center h-full">
+    <div class="flex justify-center">
       <mat-spinner></mat-spinner>
     </div>
   `,
   imports: [MatProgressSpinnerModule],
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinnerComponent {}

@@ -8,8 +8,10 @@ import {
   registerFailure,
   loginSuccess,
   register,
+  getCurrentUser,
+  getCurrentUserSuccess,
+  getCurrentUserFailure,
 } from '@store/auth/auth.actions';
-import { getCurrentUser, getCurrentUserSuccess, getCurrentUserFailure } from './auth.actions';
 
 export const featureKey = 'auth';
 

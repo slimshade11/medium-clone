@@ -1,5 +1,5 @@
 import * as AuthActions from '@store/auth/auth.actions';
+import { featureKey, reducer, State } from '@store/auth/auth.reducer';
 import * as fromAuth from '@store/auth/auth.selectors';
-import { featureKey, reducer, State } from './auth.reducer';
 
 export { AuthActions, featureKey, reducer, State, fromAuth };

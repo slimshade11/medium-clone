@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthFacade } from '@auth/auth.facade';
 import { LoginFormGroup } from '@auth/models/login-form.model';
+import { LoginPayload } from '@auth/models/login-payload.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import { Observable, takeUntil } from 'rxjs';
-import { LoginPayload } from '../../models/login-payload.model';
 
 @Component({
   selector: 'mc-login',
