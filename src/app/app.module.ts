@@ -6,6 +6,7 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SharedModule } from '@shared/shared.module';
@@ -20,6 +21,9 @@ const MODULES: Array<any> = [
   AppRoutingModule,
   BrowserAnimationsModule,
   HttpClientModule,
+  SharedModule,
+  //NgRx
+  EffectsModule.forRoot([AuthEffects, FeedEffects]),
   StoreModule.forRoot(ROOT_REDUCERS),
   StoreDevtoolsModule.instrument({
     maxAge: 25,
@@ -27,8 +31,7 @@ const MODULES: Array<any> = [
     autoPause: true,
   }),
   StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-  EffectsModule.forRoot([AuthEffects, FeedEffects]),
-  SharedModule,
+  StoreRouterConnectingModule.forRoot(),
 ];
 const INTERCEPTORS: Array<any> = [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }];
 

@@ -1,4 +1,5 @@
 import { GetFeedResponse } from '@feed/models/getFeedResponse.model';
+import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer, on } from '@ngrx/store';
 import { getFeed, getFeedFailure, getFeedSuccess } from '@store/feed/feed.actions';
 export const featureKey = 'feed';
@@ -25,5 +26,8 @@ export const reducer = createReducer(
   }),
   on(getFeedFailure, (state): State => {
     return { ...state, isLoading: false };
+  }),
+  on(routerNavigationAction, (): State => {
+    return initialState;
   })
 );

@@ -12,6 +12,7 @@ import { PaginatorComponent } from '@standalone/components/paginator/paginator.c
 import { SpinnerComponent } from '@standalone/components/spinner/spinner.component';
 import { getFeed } from '@store/feed/feed.actions';
 import { feedData, isLoading, error } from '@store/feed/feed.selectors';
+import queryString from 'query-string';
 import { Observable, takeUntil } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -38,7 +39,7 @@ export class FeedComponent extends DestroyComponent implements OnInit {
   public error$: Observable<string | null> = this.store.select(error);
 
   public limit: number = environment.limit;
-  public baseUrl: string = this.router.url.split('?')[0];
+  public baseUrl: string = this.getBaseUrlFromEndpoint(this.router);
   public currentPage: number = 0;
 
   constructor(private store: Store, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -46,12 +47,32 @@ export class FeedComponent extends DestroyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(getFeed({ url: this.apiUrl }));
+    this.listenForCurrentPageChange();
+  }
 
+  private fetchFeed(): void {
+    const offset: number = this.currentPage * this.limit - this.limit;
+    const parsedApiUrl: queryString.ParsedUrl = queryString.parseUrl(this.apiUrl);
+    const stringifiedParams: string = queryString.stringify({
+      limit: this.limit,
+      offset,
+      ...parsedApiUrl.query,
+    });
+    const apiUrlWithParams: string = `${parsedApiUrl.url}?${stringifiedParams}`;
+
+    this.store.dispatch(getFeed({ url: apiUrlWithParams }));
+  }
+
+  private listenForCurrentPageChange(): void {
     this.activatedRoute.queryParams.pipe(takeUntil(this.destroy$)).subscribe({
       next: (params: Params): void => {
         this.currentPage = Number(params['page'] || '1');
+        this.fetchFeed();
       },
     });
+  }
+
+  private getBaseUrlFromEndpoint(router: Router): string {
+    return router.url.split('?')[0];
   }
 }

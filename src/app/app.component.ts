@@ -5,7 +5,7 @@ import { getCurrentUser } from '@store/auth/auth.actions';
 @Component({
   selector: 'mc-root',
   template: `
-    <div class="max-w-screen-xl mx-auto">
+    <div class="max-w-screen-xl mx-auto px-3 xl:px-0">
       <div class="menu">
         <mc-top-bar></mc-top-bar>
       </div>

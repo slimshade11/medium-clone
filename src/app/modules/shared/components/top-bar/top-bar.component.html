@@ -42,12 +42,12 @@
       </ng-container>
       <ng-container *ngIf="isAnonymous$ | async">
         <button
-          [routerLink]="['/login']"
+          [routerLink]="['auth/login']"
           mat-menu-item>
           <span>Login</span>
         </button>
         <button
-          [routerLink]="['/register']"
+          [routerLink]="['auth/register']"
           mat-menu-item>
           <span>Register</span>
         </button>

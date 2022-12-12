@@ -8,13 +8,13 @@ import { getRange } from '@core/utils/get-range';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <ul class="flex">
+    <ul class="flex flex-wrap justify-center max-w-full">
       <li *ngFor="let page of pages">
         <a
           [routerLink]="[url]"
           [queryParams]="{page}"
-          class="block border rounded-sm border-indigo-900 hover:bg-indigo-300 p-3"
-          [class.bg-indigo-300]="currentPage === page">
+          [class.bg-indigo-300]="currentPage === page"
+          class="block border rounded-sm border-indigo-900 hover:bg-indigo-300 p-3">
           {{ page }}
         </a>
       </li>
@@ -27,8 +27,8 @@ export class PaginatorComponent implements OnInit {
   @Input() currentPage!: number;
   @Input() url!: string;
 
-  pagesCount: number = 0;
-  pages: Array<number> = [];
+  public pagesCount: number = 0;
+  public pages: Array<number> = [];
 
   ngOnInit(): void {
     this.pagesCount = Math.ceil(this.total / this.limit);

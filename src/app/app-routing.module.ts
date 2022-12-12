@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: (): Promise<any> => import('@feed/feed.module').then(({ FeedModule }): FeedModule => FeedModule),
   },
   {
-    path: 'login',
+    path: 'auth',
     loadChildren: (): Promise<any> => import('@auth/auth.module').then(({ AuthModule }): AuthModule => AuthModule),
   },
 ];

@@ -54,7 +54,6 @@ export class AuthFacade {
   }
 
   public login(loginPayload: LoginPayload): void {
-    console.log(loginPayload);
     this.store.dispatch(login({ loginPayload }));
   }
 }
