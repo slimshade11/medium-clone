@@ -24,7 +24,7 @@
                   class="block font-semibold hover:underline">
                   {{ article.author.username }}
                 </a>
-                <span class="text-gray-500">{{ article.createdAt | date }}</span>
+                <span class="text-gray-500"> {{ article.createdAt | date }} </span>
               </div>
             </div>
             <button
@@ -40,7 +40,7 @@
             <h1>{{ article.title }}</h1>
             <p>{{ article.description }}</p>
             <div class="flex items-center justify-between">
-              <span class="text-gray-400">Read more..</span>
+              <span class="text-gray-400"> Read more... </span>
               <mc-tag-list [tagList]="article.tagList"></mc-tag-list>
             </div>
           </a>

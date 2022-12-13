@@ -5,7 +5,6 @@ import { LoginPayload } from '@auth/models/login-payload.model';
 import { RegisterFormGroup } from '@auth/models/register-form.model';
 import { RegisterPayload } from '@auth/models/register-payload.model';
 import { CurrentUser } from '@auth/models/user.model';
-import { AuthService } from '@auth/services/auth.service';
 import { LoginFormService } from '@auth/services/login-form.service';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { BackendErrors } from '@core/models/backend-errors.model';
@@ -18,7 +17,6 @@ import { Observable } from 'rxjs';
 export class AuthFacade {
   constructor(
     private registerFormService: RegisterFormService,
-    private authService: AuthService,
     private loginFormService: LoginFormService,
     private store: Store
   ) {}

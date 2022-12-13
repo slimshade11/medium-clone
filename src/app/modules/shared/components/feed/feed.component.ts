@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { GetFeedResponse } from '@feed/models/getFeedResponse.model';
+import { GetFeedResponse } from '@app/modules/feed/models/get-feed-response.model';
 import { Store } from '@ngrx/store';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import { getFeed } from '@store/feed/feed.actions';

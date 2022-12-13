@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GetFeedResponse } from '@app/modules/feed/models/getFeedResponse.model';
-import { FeedService } from '@core/sevices/feed.service';
+import { GetFeedResponse } from '@feed/models/get-feed-response.model';
+import { FeedService } from '@feed/services/feed.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { getFeed, getFeedFailure, getFeedSuccess } from '@store/feed/feed.actions';
 import { map, switchMap, catchError, of } from 'rxjs';

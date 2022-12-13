@@ -1,4 +1,4 @@
-import { GetFeedResponse } from '@feed/models/getFeedResponse.model';
+import { GetFeedResponse } from '@feed/models/get-feed-response.model';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer, on } from '@ngrx/store';
 import { getFeed, getFeedFailure, getFeedSuccess } from '@store/feed/feed.actions';

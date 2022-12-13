@@ -22,6 +22,6 @@ export const STANDALONE: Array<Type<any>> = [PaginatorComponent];
 @NgModule({
   declarations: [...COMPONENTS],
   imports: [...AngularMaterialModules, ...IMPORTS, ...STANDALONE],
-  exports: [...AngularMaterialModules, ...COMPONENTS, ...IMPORTS, ...STANDALONE],
+  exports: [...AngularMaterialModules, ...IMPORTS, ...STANDALONE, ...COMPONENTS],
 })
 export class SharedModule {}

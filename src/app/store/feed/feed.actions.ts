@@ -1,4 +1,4 @@
-import { GetFeedResponse } from '@feed/models/getFeedResponse.model';
+import { GetFeedResponse } from '@feed/models/get-feed-response.model';
 import { createAction, props } from '@ngrx/store';
 import { ActionTypes } from '@store/feed/action-types';
 
