@@ -1,1 +1,23 @@
-<!-- <mc-spinner *ngIf="isLoading$ | async"></mc-spinner> -->
+<mc-spinner
+  *ngIf="isLoading$ | async"
+  [diameter]="30">
+</mc-spinner>
+
+<mat-error *ngIf="error$ | async as error">{{ error }}</mat-error>
+
+<ng-container *ngIf="popularTags$ | async as popularTags">
+  <mat-card>
+    <mat-card-header>
+      <h1>Popular tags</h1>
+    </mat-card-header>
+    <mat-card-content>
+      <ul class="flex items-center flex-wrap gap-2">
+        <li *ngFor="let popularTag of popularTags">
+          <a [routerLink]="['/tags', popularTag]">
+            <mat-chip class="cursor-pointer">{{ popularTag }}</mat-chip>
+          </a>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

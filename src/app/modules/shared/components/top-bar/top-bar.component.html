@@ -6,52 +6,75 @@
   </a>
   <div>
     <button
-      mat-icon-button
       [matMenuTriggerFor]="menu"
-      aria-label="Example icon-button with a menu">
+      mat-icon-button>
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-      </button>
-      <ng-container *ngIf="isLoggedIn$ | async">
-        <button
-          [routerLink]="['/articles/new']"
-          mat-menu-item>
-          <mat-icon>local_post_office</mat-icon>
-          <span>New post</span>
-        </button>
-        <button
-          [routerLink]="['/settings']"
-          mat-menu-item>
-          <mat-icon>settings</mat-icon>
-          <span>Settings</span>
-        </button>
-        <button
-          [routerLink]="['/profiles', (currentUser$ | async)!.username]"
-          mat-menu-item>
-          <span class="flex items-center">
-            <img
-              [src]="(currentUser$ | async)!.image"
-              class="w-6 h-6 mr-4 rounded-3xl" />
-            {{ (currentUser$ | async)!.username }}
-          </span>
-        </button>
-      </ng-container>
-      <ng-container *ngIf="isAnonymous$ | async">
-        <button
-          [routerLink]="['auth/login']"
-          mat-menu-item>
-          <span>Login</span>
-        </button>
-        <button
-          [routerLink]="['auth/register']"
-          mat-menu-item>
-          <span>Register</span>
-        </button>
-      </ng-container>
+      <nav>
+        <ul>
+          <li>
+            <a routerLink="/">
+              <button mat-menu-item>
+                <mat-icon>home</mat-icon>
+                <span>Home</span>
+              </button>
+            </a>
+          </li>
+          <ng-container *ngIf="isLoggedIn$ | async">
+            <li>
+              <a routerLink="/new-post">
+                <button
+                  [routerLink]="['/articles/new']"
+                  mat-menu-item>
+                  <mat-icon>local_post_office</mat-icon>
+                  <span>New post</span>
+                </button>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/settings">
+                <button
+                  [routerLink]="['/settings']"
+                  mat-menu-item>
+                  <mat-icon>settings</mat-icon>
+                  <span>Settings</span>
+                </button>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/">
+                <button
+                  [routerLink]="['/profiles', (currentUser$ | async)!.username]"
+                  mat-menu-item>
+                  <span class="flex items-center">
+                    <img
+                      [src]="(currentUser$ | async)!.image"
+                      class="w-6 h-6 mr-4 rounded-3xl" />
+                    {{ (currentUser$ | async)!.username }}
+                  </span>
+                </button>
+              </a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="isAnonymous$ | async">
+            <li>
+              <a routerLink="auth/login">
+                <button mat-menu-item>
+                  <span>Login</span>
+                </button>
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['auth/register']">
+                <button mat-menu-item>
+                  <span>Register</span>
+                </button>
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </nav>
     </mat-menu>
   </div>
 </div>

@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-content>
+    <ul class="flex items-center gap-3">
+      <li *ngIf="isLoggedIn$ | async">
+        <a
+          [routerLink]="['/feed']"
+          routerLinkActive="active-toggle-btn">
+          <button mat-stroked-button>Your Feed</button>
+        </a>
+      </li>
+      <li>
+        <a
+          [routerLink]="['/']"
+          routerLinkActive="active-toggle-btn">
+          <button mat-stroked-button>Global Feed</button>
+        </a>
+      </li>
+      <li *ngIf="tagName">
+        <a
+          [routerLink]="['/tags', tagName]"
+          routerLinkActive="active-toggle-btn">
+          <button mat-stroked-button>#{{ tagName }}</button>
+        </a>
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>

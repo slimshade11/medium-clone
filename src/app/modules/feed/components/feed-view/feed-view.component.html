@@ -1,5 +1,14 @@
 <div class="mb-5">
   <mc-banner></mc-banner>
 </div>
-<mc-feed [apiUrl]="apiUrl"></mc-feed>
-POPULAR TAGS
+<div class="flex gap-3">
+  <div class="w-4/6">
+    <div class="mb-4">
+      <mc-feed-toggler></mc-feed-toggler>
+    </div>
+    <mc-feed [apiUrl]="apiUrl"> </mc-feed>
+  </div>
+  <div class="w-2/6">
+    <mc-popular-tags></mc-popular-tags>
+  </div>
+</div>

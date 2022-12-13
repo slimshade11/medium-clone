@@ -11,7 +11,7 @@ export class FeedEffects {
     return this.actions$.pipe(
       ofType(getFeed),
       switchMap(({ url }) => {
-        return this.feedService.getFeed$(url).pipe(
+        return this.feedService.loadFeed$(url).pipe(
           map((feed: GetFeedResponse) => {
             return getFeedSuccess({ feed });
           }),

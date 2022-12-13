@@ -12,7 +12,7 @@ export class FeedService {
 
   constructor(private http: HttpClient) {}
 
-  public getFeed$(url: string): Observable<GetFeedResponse> {
+  public loadFeed$(url: string): Observable<GetFeedResponse> {
     return this.http.get<GetFeedResponse>(this.BASE_URL + url);
   }
 }
