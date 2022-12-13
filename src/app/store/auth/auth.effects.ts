@@ -52,6 +52,7 @@ export class AuthEffects {
       switchMap(({ loginPayload }) => {
         return this.authService.login$(loginPayload).pipe(
           map((currentUser: CurrentUser) => {
+            this.persistanceService.set('accessToken', currentUser.token);
             return loginSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {

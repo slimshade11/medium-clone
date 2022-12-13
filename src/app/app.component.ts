@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Data, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getCurrentUser } from '@store/auth/auth.actions';
+import { slider } from './_core/constants/route-animations';
 
 @Component({
   selector: 'mc-root',
@@ -9,17 +11,24 @@ import { getCurrentUser } from '@store/auth/auth.actions';
       <div class="menu">
         <mc-top-bar></mc-top-bar>
       </div>
-      <div class="content overflow-x-hidden">
-        <router-outlet></router-outlet>
-      </div>
+      <main
+        [@routeAnimations]="prepareRoute(outlet)"
+        class="content overflow-x-hidden">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </main>
     </div>
   `,
-  styleUrls: ['./app.component.scss'],
+  styles: ['.menu {  height: 72px}'],
+  animations: [slider],
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(getCurrentUser());
+  }
+
+  prepareRoute(outlet: RouterOutlet): Data {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

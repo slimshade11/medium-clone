@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GetPopularTagsResponse } from '@app/modules/feed/models/get-popular-tags-response.model';
+import { GetPopularTagsResponse } from '@feed/models/get-popular-tags-response.model';
 import { map, Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 

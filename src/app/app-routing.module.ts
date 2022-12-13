@@ -7,10 +7,16 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: (): Promise<any> => import('@feed/feed.module').then(({ FeedModule }): FeedModule => FeedModule),
+    data: {
+      animation: 'isLeft',
+    },
   },
   {
     path: 'auth',
     loadChildren: (): Promise<any> => import('@auth/auth.module').then(({ AuthModule }): AuthModule => AuthModule),
+    data: {
+      animation: 'isRight',
+    },
   },
 ];
 

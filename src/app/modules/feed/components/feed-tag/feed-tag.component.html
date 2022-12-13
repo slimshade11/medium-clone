@@ -1,7 +1,10 @@
 <mc-banner class="mb-5"></mc-banner>
 <div class="flex gap-3">
   <div class="w-4/6">
-    <mc-feed-toggler class="block my-4"></mc-feed-toggler>
+    <mc-feed-toggler
+      [tagName]="tagName!"
+      class="block my-4">
+    </mc-feed-toggler>
     <mc-feed [apiUrl]="apiUrl"></mc-feed>
   </div>
   <div class="w-2/6">

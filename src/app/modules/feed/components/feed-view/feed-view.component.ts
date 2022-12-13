@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./feed-view.component.scss'],
 })
 export class FeedViewComponent {
-  readonly apiUrl = '/articles';
+  public readonly apiUrl = '/articles';
 }
