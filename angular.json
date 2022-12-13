@@ -28,7 +28,8 @@
             "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": ["./src/assets/styles/"]
-            }
+            },
+            "allowedCommonJsDependencies": ["decode-uri-component", "split-on-first"]
           },
           "configurations": {
             "production": {

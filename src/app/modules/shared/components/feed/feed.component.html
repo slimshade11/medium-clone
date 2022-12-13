@@ -39,8 +39,10 @@
             class="block mb-5">
             <h1>{{ article.title }}</h1>
             <p>{{ article.description }}</p>
-            <span class="text-gray-400">Read more..</span>
-            HERE LIST OF TAGS
+            <div class="flex items-center justify-between">
+              <span class="text-gray-400">Read more..</span>
+              <mc-tag-list [tagList]="article.tagList"></mc-tag-list>
+            </div>
           </a>
         </mat-card-content>
       </mat-card>

@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule, Type } from '@angular/core';
 import { FeedViewComponent } from '@feed/components/feed-view/feed-view.component';
 import { FeedRoutingModule } from '@feed/feed-routing.module';
-import { BannerComponent } from '@standalone/components/banner/banner.component';
-import { FeedComponent } from '@standalone/components/feed/feed.component';
-import { SpinnerComponent } from '@standalone/components/spinner/spinner.component';
+import { SharedModule } from '@shared/shared.module';
+import { PaginatorComponent } from '@standalone/components/paginator/paginator.component';
 
 export const COMPONENTS: Array<Type<unknown>> = [FeedViewComponent];
-export const MODULES: Array<Type<unknown>> = [CommonModule, FeedRoutingModule];
-export const STANDALONE: Array<Type<unknown>> = [FeedComponent, SpinnerComponent, BannerComponent];
+export const MODULES: Array<Type<unknown>> = [CommonModule, FeedRoutingModule, SharedModule];
+export const STANDALONE: Array<Type<unknown>> = [PaginatorComponent];
 @NgModule({
   declarations: [...COMPONENTS],
   imports: [...MODULES, ...STANDALONE],
