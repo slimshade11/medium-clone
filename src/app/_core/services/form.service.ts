@@ -2,9 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export abstract class FormService {
   protected fb = inject(FormBuilder);
   private _form!: FormGroup<any>;

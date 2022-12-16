@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Validators, FormGroup } from '@angular/forms';
 import { RegisterFormGroup } from '@auth/models/register-form.model';
-import { FormService } from '@core/sevices/form.service';
+import { FormService } from '@core/services/form.service';
 
 @Injectable()
 export class RegisterFormService extends FormService {

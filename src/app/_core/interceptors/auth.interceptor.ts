@@ -1,7 +1,7 @@
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ACCESSTOKEN } from '@core/constants/access-token';
-import { PersistanceService } from '@core/sevices/persistance.service';
+import { PersistanceService } from '@core/services/persistance.service';
 import { Observable } from 'rxjs';
 
 @Injectable()

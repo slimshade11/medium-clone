@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CurrentUser } from '@auth/models/user.model';
 import { AuthService } from '@auth/services/auth.service';
 import { ACCESSTOKEN } from '@core/constants/access-token';
-import { PersistanceService } from '@core/sevices/persistance.service';
+import { PersistanceService } from '@core/services/persistance.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionTypes } from '@store/auth/action-types';
 import {
