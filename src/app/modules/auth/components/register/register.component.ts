@@ -40,7 +40,7 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
       return;
     }
 
-    const payload: RegisterPayload = {
+    const registerPayload: RegisterPayload = {
       user: {
         username: this.form.value.username!,
         email: this.form.value.email!,
@@ -48,7 +48,7 @@ export class RegisterComponent extends DestroyComponent implements OnInit {
       },
     };
 
-    this.authFacade.register(payload);
+    this.authFacade.register(registerPayload);
   }
 
   get name() {

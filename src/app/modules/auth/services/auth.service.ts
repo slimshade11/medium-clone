@@ -15,19 +15,19 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register$(registerPayload: RegisterPayload): Observable<CurrentUser> {
+  public register$(registerPayload: RegisterPayload): Observable<CurrentUser> {
     return this.http.post<AuthResponse>(`${this.BASE_URL}/users`, registerPayload).pipe(map(this.getUser));
   }
 
-  login$(loginPayload: LoginPayload): Observable<CurrentUser> {
+  public login$(loginPayload: LoginPayload): Observable<CurrentUser> {
     return this.http.post<AuthResponse>(`${this.BASE_URL}/users/login`, loginPayload).pipe(map(this.getUser));
   }
 
-  getCurrentUser$(): Observable<CurrentUser> {
+  public getCurrentUser$(): Observable<CurrentUser> {
     return this.http.get<AuthResponse>(`${this.BASE_URL}/user`).pipe(map(this.getUser));
   }
 
-  getUser({ user }: AuthResponse): CurrentUser {
+  public getUser({ user }: AuthResponse): CurrentUser {
     return user;
   }
 }

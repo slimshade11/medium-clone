@@ -10,7 +10,6 @@ import { Observable, takeUntil } from 'rxjs';
 @Component({
   selector: 'mc-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends DestroyComponent implements OnInit {
@@ -42,7 +41,10 @@ export class LoginComponent extends DestroyComponent implements OnInit {
     }
 
     const payload: LoginPayload = {
-      user: { email: this.form.value.email!, password: this.form.value.password! },
+      user: {
+        email: this.form.value.email!,
+        password: this.form.value.password!,
+      },
     };
 
     this.authFacade.login(payload);

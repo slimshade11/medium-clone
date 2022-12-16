@@ -24,6 +24,7 @@ export const reducer = createReducer(
     return { ...state, isLoading: false, data: popularTags };
   }),
   on(getPopularTagsFailure, (state): State => {
+    // handle backend errors
     return { ...state };
   })
 );

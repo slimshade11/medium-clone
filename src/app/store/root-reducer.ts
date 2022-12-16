@@ -11,7 +11,9 @@ export interface AppState {
   [fromPopularTags.featureKey]: fromPopularTags.State;
 }
 
-export const ROOT_REDUCERS = new InjectionToken<ActionReducerMap<AppState>>('Root reducers token', {
+export const ROOT_REDUCERS_TOKEN: string = 'Root reducers token';
+
+export const ROOT_REDUCERS = new InjectionToken<ActionReducerMap<AppState>>(ROOT_REDUCERS_TOKEN, {
   factory: () => ({
     router: routerReducer,
     [fromAuth.featureKey]: fromAuth.reducer,

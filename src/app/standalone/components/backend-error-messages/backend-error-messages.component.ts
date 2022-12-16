@@ -20,10 +20,10 @@ import { BackendErrors } from '@core/models/backend-errors.model';
 export class BackendErrorMessagesComponent implements OnInit {
   @Input() backendErrors!: BackendErrors;
 
-  errorMessages: string[] = [];
+  errorMessages: Array<string> = [];
 
   ngOnInit(): void {
-    this.errorMessages = Object.keys(this.backendErrors).map((name: string): string => {
+    this.errorMessages = Object.keys(this.backendErrors).map<string>((name: string) => {
       const messages = this.backendErrors[name].join(' ');
       return `${name} ${messages}`;
     });
