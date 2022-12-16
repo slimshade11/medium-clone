@@ -47,12 +47,14 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <mc-paginator
-      [total]="(feed$ | async)!.articlesCount"
-      [limit]="limit"
-      [url]="baseUrl"
-      [currentPage]="currentPage">
-    </mc-paginator>
+    <div class="my-4">
+      <mc-paginator
+        [total]="(feed$ | async)!.articlesCount"
+        [limit]="limit"
+        [url]="baseUrl"
+        [currentPage]="currentPage">
+      </mc-paginator>
+    </div>
   </ng-container>
 </ng-container>
 

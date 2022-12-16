@@ -3,43 +3,39 @@
     <mc-auth-panel>
       <mc-auth-panel-header>Log in</mc-auth-panel-header>
       <mc-auth-panel-content>
-        <div class="mt-5">
-          <mc-backend-error-messages
-            *ngIf="errors$ | async as errors"
-            [backendErrors]="errors">
-          </mc-backend-error-messages>
-        </div>
+        <mc-backend-error-messages
+          *ngIf="errors$ | async as errors"
+          [backendErrors]="errors"
+          class="mt-5">
+        </mc-backend-error-messages>
         <form
           [formGroup]="form"
           (ngSubmit)="onSubmit()"
           autocomplete="off">
-          <div>
-            <mat-form-field class="mt-2 w-full">
-              <mat-label>Email</mat-label>
-              <input
-                matInput
-                type="email"
-                formControlName="email" />
-              <mat-error *ngIf="email.errors?.['email']">Invalid email format</mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field class="mt-2 w-full">
-              <mat-label>Password</mat-label>
-              <input
-                matInput
-                formControlName="password"
-                [type]="hide ? 'password' : 'text'" />
-              <button
-                mat-icon-button
-                matSuffix
-                (click)="hide = !hide"
-                [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-              </button>
-            </mat-form-field>
-          </div>
+          <mat-form-field class="mt-2 w-full">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="email" />
+            <mat-error *ngIf="email.errors?.['email']">Invalid email format</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mt-2 w-full">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              [type]="hide ? 'password' : 'text'" />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
           <div class="my-3">
             <a routerLink="../register">Need an account?</a>
           </div>

@@ -12,6 +12,5 @@ import { Component } from '@angular/core';
       </mat-card-content>
     </mat-card>
   `,
-  styles: [''],
 })
 export class AuthPanelComponent {}

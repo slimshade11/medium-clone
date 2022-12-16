@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Data, RouterOutlet } from '@angular/router';
+import { slider } from '@core/constants/route-animations';
 import { Store } from '@ngrx/store';
 import { getCurrentUser } from '@store/auth/auth.actions';
-import { slider } from './_core/constants/route-animations';
 
 @Component({
   selector: 'mc-root',
@@ -16,9 +16,10 @@ import { slider } from './_core/constants/route-animations';
         class="content overflow-x-hidden">
         <router-outlet #outlet="outlet"></router-outlet>
       </main>
+      <div class="py-4 text-center bg-indigo-900 text-slate-100">&copy; 2022 Medium-clone</div>
     </div>
   `,
-  styles: ['.menu {  height: 72px}'],
+  styles: ['.menu {  height: 72px}; .content{min-height: calc(100vh - 72px)}'],
   animations: [slider],
 })
 export class AppComponent implements OnInit {

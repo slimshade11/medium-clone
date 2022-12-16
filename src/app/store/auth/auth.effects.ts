@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentUser } from '@auth/models/user.model';
 import { AuthService } from '@auth/services/auth.service';
+import { ACCESSTOKEN } from '@core/constants/access-token';
 import { PersistanceService } from '@core/sevices/persistance.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ActionTypes } from '@store/auth/action-types';
@@ -11,9 +12,12 @@ import {
   registerFailure,
   getCurrentUserSuccess,
   getCurrentUserFailure,
+  login,
+  loginSuccess,
+  loginFailure,
+  getCurrentUser,
 } from '@store/auth/auth.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { login, loginSuccess, loginFailure, getCurrentUser } from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -23,7 +27,7 @@ export class AuthEffects {
       switchMap(({ registerPayload }) => {
         return this.authService.register$(registerPayload).pipe(
           map((currentUser: CurrentUser) => {
-            this.persistanceService.set('accessToken', currentUser.token);
+            this.persistanceService.set(ACCESSTOKEN, currentUser.token);
             return registerSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -52,7 +56,7 @@ export class AuthEffects {
       switchMap(({ loginPayload }) => {
         return this.authService.login$(loginPayload).pipe(
           map((currentUser: CurrentUser) => {
-            this.persistanceService.set('accessToken', currentUser.token);
+            this.persistanceService.set(ACCESSTOKEN, currentUser.token);
             return loginSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -79,7 +83,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(getCurrentUser),
       switchMap(() => {
-        const token = this.persistanceService.get('accessToken');
+        const token = this.persistanceService.get(ACCESSTOKEN);
 
         if (!token) {
           return of(getCurrentUserFailure());
