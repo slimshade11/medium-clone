@@ -6,32 +6,22 @@ import { AuthService } from '@auth/services/auth.service';
 import { ACCESSTOKEN } from '@core/constants/access-token';
 import { PersistanceService } from '@core/services/persistance.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ActionTypes } from '@store/auth/action-types';
-import {
-  registerSuccess,
-  registerFailure,
-  getCurrentUserSuccess,
-  getCurrentUserFailure,
-  login,
-  loginSuccess,
-  loginFailure,
-  getCurrentUser,
-} from '@store/auth/auth.actions';
+import { AuthActions } from '@store/auth';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
   public register$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ActionTypes.REGISTER),
+      ofType(AuthActions.register),
       switchMap(({ registerPayload }) => {
         return this.authService.register$(registerPayload).pipe(
           map((currentUser: CurrentUser) => {
             this.persistanceService.set(ACCESSTOKEN, currentUser.token);
-            return registerSuccess({ currentUser });
+            return AuthActions.registerSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            return of(registerFailure({ errors: errorResponse.error.errors }));
+            return of(AuthActions.registerFailure({ errors: errorResponse.error.errors }));
           })
         );
       })
@@ -41,7 +31,7 @@ export class AuthEffects {
   public redirectAfterRegisterSubmit$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(registerSuccess),
+        ofType(AuthActions.registerSuccess),
         tap((): void => {
           this.router.navigateByUrl('/');
         })
@@ -52,15 +42,15 @@ export class AuthEffects {
 
   public login$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(login),
+      ofType(AuthActions.login),
       switchMap(({ loginPayload }) => {
         return this.authService.login$(loginPayload).pipe(
           map((currentUser: CurrentUser) => {
             this.persistanceService.set(ACCESSTOKEN, currentUser.token);
-            return loginSuccess({ currentUser });
+            return AuthActions.loginSuccess({ currentUser });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            return of(loginFailure({ errors: errorResponse.error.errors }));
+            return of(AuthActions.loginFailure({ errors: errorResponse.error.errors }));
           })
         );
       })
@@ -70,7 +60,7 @@ export class AuthEffects {
   public redirectAfterLoginSubmit$ = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(loginSuccess),
+        ofType(AuthActions.loginSuccess),
         tap((): void => {
           this.router.navigateByUrl('/');
         })
@@ -81,20 +71,20 @@ export class AuthEffects {
 
   public getCurrentUser$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getCurrentUser),
+      ofType(AuthActions.getCurrentUser),
       switchMap(() => {
         const token = this.persistanceService.get(ACCESSTOKEN);
 
         if (!token) {
-          return of(getCurrentUserFailure());
+          return of(AuthActions.getCurrentUserFailure());
         }
 
         return this.authService.getCurrentUser$().pipe(
           map((currentUser: CurrentUser) => {
-            return getCurrentUserSuccess({ currentUser });
+            return AuthActions.getCurrentUserSuccess({ currentUser });
           }),
           catchError(() => {
-            return of(getCurrentUserFailure());
+            return of(AuthActions.getCurrentUserFailure());
           })
         );
       })

@@ -1,27 +1,62 @@
 import { Injectable } from '@angular/core';
-import { ArticleService } from '@core/services/article.service';
+import { Router } from '@angular/router';
+import { ArticleService } from '@article/services/article.service';
+import { ArticleService as SharedArticleService } from '@core/services/article.service';
 import { Article } from '@feed/models/article.model';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { getArticle, getArticleSuccess, getArticleFailure } from '@store/article/article.actions';
-import { map, switchMap, catchError, of } from 'rxjs';
+import { ArticleActions } from '@store/article';
+import { map, switchMap, catchError, of, tap } from 'rxjs';
 
 @Injectable()
 export class ArticleEffects {
   getArticle$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getArticle),
+      ofType(ArticleActions.getArticle),
       switchMap(({ slug }) => {
-        return this.articleService.getArticle$(slug).pipe(
+        return this.sharedArticleService.getArticle$(slug).pipe(
           map((article: Article) => {
-            return getArticleSuccess({ article });
+            return ArticleActions.getArticleSuccess({ article });
           }),
           catchError(() => {
-            return of(getArticleFailure);
+            return of(ArticleActions.getArticleFailure);
           })
         );
       })
     );
   });
 
-  constructor(private actions$: Actions, private articleService: ArticleService) {}
+  deleteArticle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ArticleActions.deleteArticle),
+      switchMap(({ slug }) => {
+        return this.articleService.deleteArticle$(slug).pipe(
+          map(() => {
+            return ArticleActions.deleteArticleSuccess();
+          }),
+          catchError(() => {
+            return of(ArticleActions.deleteArticleFailure());
+          })
+        );
+      })
+    );
+  });
+
+  redirectAfterArticleDelete$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(ArticleActions.deleteArticleSuccess),
+        tap((): void => {
+          this.router.navigateByUrl('/');
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions$: Actions,
+    private sharedArticleService: SharedArticleService,
+    private articleService: ArticleService,
+    private router: Router
+  ) {}
 }

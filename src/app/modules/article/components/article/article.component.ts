@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SLUG } from '@core/constants/slug';
 import { Article } from '@feed/models/article.model';
 import { Store } from '@ngrx/store';
-import { fromArticle } from '@store/article';
+import { ArticleActions, fromArticle } from '@store/article';
 import { getArticle } from '@store/article/article.actions';
 import { Observable } from 'rxjs';
 
@@ -28,5 +28,9 @@ export class ArticleComponent implements OnInit {
 
   private fetchData(): void {
     this.store.dispatch(getArticle({ slug: this.slug! }));
+  }
+
+  public onDeleteArticle(): void {
+    this.store.dispatch(ArticleActions.deleteArticle({ slug: this.slug! }));
   }
 }
