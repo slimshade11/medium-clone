@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SLUG } from '@core/constants/slug';
+import { ArticleFacade } from '@article/article.facade';
+import { getSlug } from '@core/utils/get-slug';
 import { Article } from '@feed/models/article.model';
-import { Store } from '@ngrx/store';
-import { ArticleActions, fromArticle } from '@store/article';
-import { getArticle } from '@store/article/article.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,24 +10,24 @@ import { Observable } from 'rxjs';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements OnInit {
-  public article$: Observable<Article | null> = this.store.select(fromArticle.article);
-  public isLoading$: Observable<boolean> = this.store.select(fromArticle.isLoading);
-  public error$: Observable<string | null> = this.store.select(fromArticle.error);
-  public isAuthor$: Observable<boolean> = this.store.select(fromArticle.isAuthor);
+  public article$: Observable<Article | null> = this.articleFacade.getArticle$();
+  public isLoading$: Observable<boolean> = this.articleFacade.getIsLoading$();
+  public error$: Observable<string | null> = this.articleFacade.getError$();
+  public isAuthor$: Observable<boolean> = this.articleFacade.getIsAuthor$();
 
-  private slug: string | null = this.activatedRoute.snapshot.paramMap.get(SLUG);
+  private slug: string | null = getSlug();
 
-  constructor(private store: Store, private activatedRoute: ActivatedRoute) {}
+  constructor(private articleFacade: ArticleFacade) {}
 
   ngOnInit(): void {
-    this.fetchData();
+    this.fetchData(this.slug!);
   }
 
-  private fetchData(): void {
-    this.store.dispatch(getArticle({ slug: this.slug! }));
+  private fetchData(slug: string): void {
+    this.articleFacade.fetchArticleData(slug);
   }
 
   public onDeleteArticle(): void {
-    this.store.dispatch(ArticleActions.deleteArticle({ slug: this.slug! }));
+    this.articleFacade.deleteArticle(this.slug!);
   }
 }
