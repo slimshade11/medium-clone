@@ -5,7 +5,9 @@ import { GetArticleResponse } from '@core/models/get-article-response.model';
 import { map, Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ArticleService {
   private readonly BASE_URL: string = env.BASE_URL;
 
@@ -13,6 +15,6 @@ export class ArticleService {
 
   public getArticle$(slug: string): Observable<Article> {
     const url: string = `${this.BASE_URL}/articles/${slug}`;
-    return this.http.get<GetArticleResponse>(url).pipe(map(({ article }: GetArticleResponse) => article));
+    return this.http.get<GetArticleResponse>(url).pipe(map(({ article }: GetArticleResponse): Article => article));
   }
 }

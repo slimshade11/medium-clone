@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import { getPopularTags } from '@store/popular-tags/popular-tags.actions';
@@ -15,7 +16,9 @@ export class PopularTagsComponent extends DestroyComponent implements OnInit {
   public isLoading$: Observable<boolean> = this.store.select(isLoading);
   public error$: Observable<string | null> = this.store.select(error);
 
-  constructor(private store: Store) {
+  public selectedPopularTag: string = this.router.url.split('tags/')[1];
+
+  constructor(private store: Store, private router: Router) {
     super();
   }
 
