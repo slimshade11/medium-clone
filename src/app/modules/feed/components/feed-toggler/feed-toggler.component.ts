@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { isLoggedIn } from '@store/auth/auth.selectors';
+import { fromAuth } from '@store/auth';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,5 +13,5 @@ export class FeedTogglerComponent {
 
   constructor(private store: Store) {}
 
-  public isLoggedIn$: Observable<boolean | null> = this.store.select(isLoggedIn);
+  public isLoggedIn$: Observable<boolean | null> = this.store.select(fromAuth.isLoggedIn);
 }

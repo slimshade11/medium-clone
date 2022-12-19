@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CurrentUser } from '@app/modules/auth/models/user.model';
 import { Store } from '@ngrx/store';
-import { currentUser, isAnonymous, isLoggedIn } from '@store/auth/auth.selectors';
+import { fromAuth } from '@store/auth';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent {
-  isLoggedIn$: Observable<boolean | null> = this.store.select(isLoggedIn);
-  isAnonymous$: Observable<boolean> = this.store.select(isAnonymous);
-  currentUser$: Observable<CurrentUser | null> = this.store.select(currentUser);
+  isLoggedIn$: Observable<boolean | null> = this.store.select(fromAuth.isLoggedIn);
+  isAnonymous$: Observable<boolean> = this.store.select(fromAuth.isAnonymous);
+  currentUser$: Observable<CurrentUser | null> = this.store.select(fromAuth.currentUser);
 
   constructor(private store: Store) {}
 }

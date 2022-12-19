@@ -3,8 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GetFeedResponse } from '@app/modules/feed/models/get-feed-response.model';
 import { Store } from '@ngrx/store';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
+import { fromFeed } from '@store/feed';
 import { getFeed } from '@store/feed/feed.actions';
-import { feedData, isLoading, error } from '@store/feed/feed.selectors';
 import queryString from 'query-string';
 import { Observable, takeUntil } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,9 +16,9 @@ import { environment } from 'src/environments/environment';
 export class FeedComponent extends DestroyComponent implements OnInit {
   @Input() apiUrl!: string;
 
-  public feed$: Observable<GetFeedResponse | null> = this.store.select(feedData);
-  public isLoading$: Observable<boolean> = this.store.select(isLoading);
-  public error$: Observable<string | null> = this.store.select(error);
+  public feed$: Observable<GetFeedResponse | null> = this.store.select(fromFeed.feedData);
+  public isLoading$: Observable<boolean> = this.store.select(fromFeed.isLoading);
+  public error$: Observable<string | null> = this.store.select(fromFeed.error);
 
   public limit: number = environment.limit;
   public baseUrl: string = this.getBaseUrlFromEndpoint(this.router);

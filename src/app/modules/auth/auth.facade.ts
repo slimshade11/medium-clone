@@ -9,8 +9,8 @@ import { LoginFormService } from '@auth/services/login-form.service';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { Store } from '@ngrx/store';
+import { fromAuth } from '@store/auth';
 import { login, register } from '@store/auth/auth.actions';
-import { currentUser, errors, isLoading, isLoggedIn } from '@store/auth/auth.selectors';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -22,19 +22,19 @@ export class AuthFacade {
   ) {}
 
   public getCurrentUser$(): Observable<CurrentUser | null> {
-    return this.store.select(currentUser);
+    return this.store.select(fromAuth.currentUser);
   }
 
   public getIsLoading$(): Observable<boolean> {
-    return this.store.select(isLoading);
+    return this.store.select(fromAuth.isLoading);
   }
 
   public getErrors$(): Observable<BackendErrors | null> {
-    return this.store.select(errors);
+    return this.store.select(fromAuth.errors);
   }
 
   public getIsLoggedIn$(): Observable<boolean | null> {
-    return this.store.select(isLoggedIn);
+    return this.store.select(fromAuth.isLoggedIn);
   }
 
   public getRegisterForm$(): Observable<FormGroup<RegisterFormGroup>> {
