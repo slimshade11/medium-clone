@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ArticleFacade } from '@article/article.facade';
 import { ArticleInitialValues } from '@article/models/article-initial-values.model';
 import { CreateArticleForm } from '@article/models/create-article-form.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
-import { takeUntil } from 'rxjs';
+import { takeUntil, Observable } from 'rxjs';
 
-const mockedValue = {
-  title: 'dupa',
-  description: 'dupa zbita',
-  body: 'dupa zbita bardzo bardzo',
-  tagList: ['dupa zbita bardzo bardzo hej hej'].join(' '),
+const initialValues = {
+  title: '',
+  description: '',
+  body: '',
+  tagList: [],
 };
 
 @Component({
@@ -20,11 +20,8 @@ const mockedValue = {
   styleUrls: ['./create-article.component.scss'],
 })
 export class CreateArticleComponent extends DestroyComponent implements OnInit {
-  @Input() initialValues!: ArticleInitialValues;
-  @Input() isSubmitting!: boolean;
-  @Input() errors!: BackendErrors | null;
-
-  @Output() articleSubmit: EventEmitter<ArticleInitialValues> = new EventEmitter<ArticleInitialValues>();
+  public isSubmitting$: Observable<boolean> = this.articleFacade.getIsSubmitting$();
+  public validationErrors$: Observable<BackendErrors | null> = this.articleFacade.getValidationErrors$();
 
   public form!: FormGroup<CreateArticleForm>;
 
@@ -33,22 +30,35 @@ export class CreateArticleComponent extends DestroyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeForm();
-  }
-
-  private initializeForm(): void {
     this.articleFacade
       .getCreateArticleForm$()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (form: FormGroup<CreateArticleForm>): void => {
           this.form = form;
-          this.form.patchValue(mockedValue);
+          this.form.patchValue({
+            title: initialValues.title,
+            description: initialValues.description,
+            body: initialValues.body,
+            tagList: initialValues.tagList.join(' '),
+          });
         },
       });
   }
 
   public onSubmit(): void {
-    console.log(this.form.value);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const createArticlePayload: ArticleInitialValues = {
+      title: this.form.value.title!,
+      description: this.form.value.description!,
+      body: this.form.value.body!,
+      tagList: this.form.value.tagList!.split(' '),
+    };
+
+    this.articleFacade.dispatchCreateArticle$(createArticlePayload);
   }
 }

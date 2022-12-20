@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GetFeedResponse } from '@app/modules/feed/models/get-feed-response.model';
+import { GetFeedResponse } from '@feed/models/get-feed-response.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 

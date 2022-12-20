@@ -1,62 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArticleService } from '@article/services/article.service';
-import { ArticleService as SharedArticleService } from '@core/services/article.service';
-import { Article } from '@feed/models/article.model';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ArticleActions } from '@store/article';
-import { map, switchMap, catchError, of, tap } from 'rxjs';
+import { ArticleFacade } from '@article/article.facade';
+import { Actions, createEffect } from '@ngrx/effects';
 
 @Injectable()
 export class ArticleEffects {
-  getArticle$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ArticleActions.getArticle),
-      switchMap(({ slug }) => {
-        return this.sharedArticleService.getArticle$(slug).pipe(
-          map((article: Article) => {
-            return ArticleActions.getArticleSuccess({ article });
-          }),
-          catchError(() => {
-            return of(ArticleActions.getArticleFailure);
-          })
-        );
-      })
-    );
+  getArticle$ = createEffect(() => this.articleFacade.getArticleEffect$());
+
+  deleteArticle$ = createEffect(() => this.articleFacade.deleteArticleEffect$());
+
+  redirectAfterArticleDelete$ = createEffect(() => this.articleFacade.redirectAfterArticleDeleteEffect$(), {
+    dispatch: false,
   });
 
-  deleteArticle$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ArticleActions.deleteArticle),
-      switchMap(({ slug }) => {
-        return this.articleService.deleteArticle$(slug).pipe(
-          map(() => {
-            return ArticleActions.deleteArticleSuccess();
-          }),
-          catchError(() => {
-            return of(ArticleActions.deleteArticleFailure());
-          })
-        );
-      })
-    );
+  createArticle$ = createEffect(() => this.articleFacade.createArticleEffect$());
+
+  redirectAfterCreateArticle$ = createEffect(() => this.articleFacade.redirectAfterCreateArticle$(), {
+    dispatch: false,
   });
 
-  redirectAfterArticleDelete$ = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(ArticleActions.deleteArticleSuccess),
-        tap((): void => {
-          this.router.navigateByUrl('/');
-        })
-      );
-    },
-    { dispatch: false }
-  );
-
-  constructor(
-    private actions$: Actions,
-    private sharedArticleService: SharedArticleService,
-    private articleService: ArticleService,
-    private router: Router
-  ) {}
+  constructor(private actions$: Actions, private articleFacade: ArticleFacade, private router: Router) {}
 }

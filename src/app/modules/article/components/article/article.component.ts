@@ -20,14 +20,10 @@ export class ArticleComponent implements OnInit {
   constructor(private articleFacade: ArticleFacade) {}
 
   ngOnInit(): void {
-    this.fetchData(this.slug!);
-  }
-
-  private fetchData(slug: string): void {
-    this.articleFacade.fetchArticleData(slug);
+    this.articleFacade.fetchArticleData(this.slug!);
   }
 
   public onDeleteArticle(): void {
-    this.articleFacade.deleteArticle(this.slug!);
+    this.articleFacade.dispatchDeleteArticle$(this.slug!);
   }
 }
