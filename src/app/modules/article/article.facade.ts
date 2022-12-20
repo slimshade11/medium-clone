@@ -4,9 +4,11 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ArticleInitialValues } from '@article/models/article-initial-values.model';
 import { CreateArticleForm } from '@article/models/create-article-form.model';
+import { SaveArticleResponse } from '@article/models/save-article-response.model';
 import { ArticleService } from '@article/services/article.service';
 import { CreateArticleFormService } from '@article/services/create-article-form.service';
 import { CreateArticleService } from '@article/services/create-article.service';
+import { EditArticleService } from '@article/services/edit-article.service';
 import { ToastStatus } from '@core/enums/toast-status.enum';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { ArticleService as SharedArticleService } from '@core/services/article.service';
@@ -15,6 +17,7 @@ import { Article } from '@feed/models/article.model';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ArticleActions, fromArticle } from '@store/article';
+import { ArticleEditActions } from '@store/article-edit';
 import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 
 @Injectable()
@@ -27,7 +30,8 @@ export class ArticleFacade {
     private store: Store,
     private actions$: Actions,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private editArticleService: EditArticleService
   ) {}
 
   public getCreateArticleForm$(): Observable<FormGroup<CreateArticleForm>> {
@@ -132,6 +136,7 @@ export class ArticleFacade {
             return ArticleActions.createArticleSuccess({ article });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
+            this.toastService.showInfoMessage('Error during creating article', ToastStatus.WARN, 'Ok');
             return of(ArticleActions.createArticleFailure({ errors: errorResponse.error.errors }));
           })
         );
@@ -142,8 +147,50 @@ export class ArticleFacade {
   public redirectAfterCreateArticle$() {
     return this.actions$.pipe(
       ofType(ArticleActions.createArticleSuccess),
-      tap(({ article }): void => {
+      tap(({ article }: SaveArticleResponse): void => {
         this.router.navigate(['/articles/article', article.slug]);
+      })
+    );
+  }
+
+  public getArticleEdit$() {
+    return this.actions$.pipe(
+      ofType(ArticleEditActions.getArticle),
+      switchMap(({ slug }) => {
+        return this.sharedArticleService.loadArticle$(slug).pipe(
+          map((article: Article) => {
+            return ArticleEditActions.getArticleSuccess({ article });
+          }),
+          catchError(() => {
+            return of(ArticleEditActions.getArticleFailure());
+          })
+        );
+      })
+    );
+  }
+
+  public editArticle$() {
+    return this.actions$.pipe(
+      ofType(ArticleEditActions.editArticle),
+      switchMap(({ slug, articleEditPayload }) => {
+        return this.editArticleService.editArticle$(slug, articleEditPayload).pipe(
+          map((article: Article) => {
+            return ArticleEditActions.editArticleSuccess({ article });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.toastService.showInfoMessage('Error during editing article', ToastStatus.WARN, 'Ok');
+            return of(ArticleEditActions.editArticleFailure({ errors: errorResponse.error.errors }));
+          })
+        );
+      })
+    );
+  }
+
+  public redirectAfterEditArticle$() {
+    return this.actions$.pipe(
+      ofType(ArticleEditActions.editArticleSuccess),
+      tap(({ article }: SaveArticleResponse): void => {
+        this.router.navigate(['/articles', article.slug]);
       })
     );
   }

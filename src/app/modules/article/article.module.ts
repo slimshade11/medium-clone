@@ -5,6 +5,7 @@ import { ArticleRoutingModule } from '@article/article-routing.module';
 import { ArticleFacade } from '@article/article.facade';
 import { ArticleComponent } from '@article/components/article/article.component';
 import { CreateArticleComponent } from '@article/components/create-article/create-article.component';
+import { EditArticleComponent } from '@article/dialogs/edit-article/edit-article.component';
 import { CreateArticleFormService } from '@article/services/create-article-form.service';
 import { CreateArticleService } from '@article/services/create-article.service';
 import { SharedModule } from '@shared/shared.module';
@@ -17,7 +18,7 @@ const IMPORTS: Array<Type<any>> = [
   ReactiveFormsModule,
   BackendErrorMessagesComponent,
 ];
-const COMPONENTS: Array<Type<unknown>> = [ArticleComponent, CreateArticleComponent];
+const COMPONENTS: Array<Type<unknown>> = [ArticleComponent, CreateArticleComponent, EditArticleComponent];
 const PROVIDERS: Array<Type<unknown>> = [FormBuilder, ArticleFacade, CreateArticleFormService, CreateArticleService];
 @NgModule({
   declarations: COMPONENTS,

@@ -128,8 +128,7 @@ export class AuthFacade {
     return this.actions$.pipe(
       ofType(AuthActions.getCurrentUser),
       switchMap(() => {
-        const token = this.persistanceService.get(ACCESSTOKEN);
-
+        const token: string = this.persistanceService.get(ACCESSTOKEN);
         if (!token) {
           return of(AuthActions.getCurrentUserFailure());
         }

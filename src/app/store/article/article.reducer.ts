@@ -8,14 +8,14 @@ export const featureKey = 'article';
 export interface State {
   isLoading: boolean;
   error: string | null;
-  data: Article | null;
+  article: Article | null;
   isSubmitting: boolean;
   validationErrors: BackendErrors | null;
 }
 
 const initialState: State = {
   isLoading: false,
-  data: null,
+  article: null,
   error: null,
   isSubmitting: false,
   validationErrors: null,
@@ -27,7 +27,7 @@ export const reducer = createReducer(
     return { ...state, isLoading: true };
   }),
   on(ArticleActions.getArticleSuccess, (state, { article }): State => {
-    return { ...state, isLoading: false, data: article };
+    return { ...state, isLoading: false, article };
   }),
   on(ArticleActions.getArticleFailure, (state): State => {
     return { ...state, isLoading: false };

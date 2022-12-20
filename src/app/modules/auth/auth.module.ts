@@ -34,6 +34,6 @@ const SERVICES: Array<Type<any>> = [RegisterFormService, LoginFormService, AuthF
 @NgModule({
   declarations: COMPONENTS,
   imports: MODULES,
-  providers: [...SERVICES],
+  providers: SERVICES,
 })
 export class AuthModule {}
