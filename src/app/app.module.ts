@@ -18,6 +18,8 @@ import { FeedEffects } from '@store/feed/feed.effects';
 import { PopularTagsEffects } from '@store/popular-tags/popular-tags.effects';
 import { ROOT_REDUCERS } from '@store/root-reducer';
 
+//test commit
+
 const COMPONENTS: Array<Type<unknown>> = [AppComponent];
 
 const MODULES: Array<any> = [
