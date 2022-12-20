@@ -29,7 +29,7 @@ const MODULES: Array<Type<any>> = [
   AuthRoutingModule,
   BackendErrorMessagesComponent,
 ];
-const SERVICES: Array<Type<any>> = [AuthFacade, RegisterFormService, LoginFormService];
+const SERVICES: Array<Type<any>> = [RegisterFormService, LoginFormService, AuthFacade];
 
 @NgModule({
   declarations: COMPONENTS,

@@ -31,16 +31,8 @@
             <mat-label>Password</mat-label>
             <input
               matInput
-              formControlName="password"
-              [type]="hide ? 'password' : 'text'" />
-            <button
-              (click)="hide = !hide"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
-              mat-icon-button
-              matSuffix>
-              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-            </button>
+              type="password"
+              formControlName="password" />
           </mat-form-field>
           <div class="my-3">
             <a routerLink="../login">Have an account?</a>

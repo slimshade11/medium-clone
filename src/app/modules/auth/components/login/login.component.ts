@@ -15,7 +15,6 @@ import { Observable, takeUntil } from 'rxjs';
 export class LoginComponent extends DestroyComponent implements OnInit {
   public isLoading$: Observable<boolean> = this.authFacade.getIsLoading$();
   public errors$: Observable<BackendErrors | null> = this.authFacade.getErrors$();
-  public hide = true;
 
   public form!: FormGroup<LoginFormGroup>;
 

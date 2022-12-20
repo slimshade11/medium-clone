@@ -3,7 +3,9 @@ import { Validators, FormGroup } from '@angular/forms';
 import { RegisterFormGroup } from '@auth/models/register-form.model';
 import { FormService } from '@core/services/form.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RegisterFormService extends FormService {
   get config(): FormGroup<RegisterFormGroup> {
     return this.fb.group({
