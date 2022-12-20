@@ -15,7 +15,7 @@ export class CreateArticleService {
 
   createArticle$(createArticlePayload: ArticleInitialValues): Observable<Article> {
     return this.http
-      .post<SaveArticleResponse>(`${this.BASE_URL}/articles`, createArticlePayload)
+      .post<SaveArticleResponse>(`${this.BASE_URL}/articles`, { article: createArticlePayload })
       .pipe(map(({ article }: SaveArticleResponse): Article => article));
   }
 }

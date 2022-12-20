@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(getCurrentUser());
   }
 
-  prepareRoute(outlet: RouterOutlet): Data {
+  public prepareRoute(outlet: RouterOutlet): Data {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

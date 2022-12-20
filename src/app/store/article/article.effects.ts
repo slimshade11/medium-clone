@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { ArticleFacade } from '@article/article.facade';
-import { Actions, createEffect } from '@ngrx/effects';
+import { createEffect } from '@ngrx/effects';
 
 @Injectable()
 export class ArticleEffects {
-  getArticle$ = createEffect(() => this.articleFacade.getArticleEffect$());
-
-  deleteArticle$ = createEffect(() => this.articleFacade.deleteArticleEffect$());
-
-  redirectAfterArticleDelete$ = createEffect(() => this.articleFacade.redirectAfterArticleDeleteEffect$(), {
-    dispatch: false,
+  getArticle$ = createEffect(() => {
+    return this.articleFacade.getArticleEffect$();
   });
 
-  createArticle$ = createEffect(() => this.articleFacade.createArticleEffect$());
+  deleteArticle$ = createEffect(
+    () => {
+      return this.articleFacade.deleteArticleEffect$();
+    },
+    { dispatch: false }
+  );
 
-  redirectAfterCreateArticle$ = createEffect(() => this.articleFacade.redirectAfterCreateArticle$(), {
-    dispatch: false,
+  redirectAfterArticleDelete$ = createEffect(
+    () => {
+      return this.articleFacade.redirectAfterArticleDeleteEffect$();
+    },
+    { dispatch: false }
+  );
+
+  createArticle$ = createEffect(() => {
+    return this.articleFacade.createArticleEffect$();
   });
 
-  constructor(private actions$: Actions, private articleFacade: ArticleFacade, private router: Router) {}
+  redirectAfterCreateArticle$ = createEffect(
+    () => {
+      return this.articleFacade.redirectAfterCreateArticle$();
+    },
+    { dispatch: false }
+  );
+
+  constructor(private articleFacade: ArticleFacade) {}
 }

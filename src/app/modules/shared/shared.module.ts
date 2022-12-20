@@ -6,6 +6,7 @@ import { BannerComponent } from '@shared/components/banner/banner.component';
 import { FeedComponent } from '@shared/components/feed/feed.component';
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { TagListComponent } from '@shared/components/tag-list/tag-list.component';
+import { ToastComponent } from '@shared/components/toast/toast.component';
 import { TopBarComponent } from '@shared/components/top-bar/top-bar.component';
 import { PaginatorComponent } from '@standalone/components/paginator/paginator.component';
 
@@ -15,6 +16,7 @@ export const COMPONENTS: Array<Type<any>> = [
   TagListComponent,
   SpinnerComponent,
   BannerComponent,
+  ToastComponent,
 ];
 export const IMPORTS: Array<Type<any>> = [RouterModule, CommonModule];
 export const STANDALONE: Array<Type<any>> = [PaginatorComponent];

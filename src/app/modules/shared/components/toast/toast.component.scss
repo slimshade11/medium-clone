@@ -1,0 +1,11 @@
+::ng-deep mat-snack-bar-container.toast-custom {
+  .mat-mdc-snack-bar-label {
+    padding: 0;
+  }
+
+  .mdc-snackbar__surface {
+    padding-right: 0 !important;
+    background-color: transparent;
+    border-radius: 0.75rem;
+  }
+}

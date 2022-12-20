@@ -14,7 +14,7 @@
       <nav>
         <ul>
           <li>
-            <a routerLink="/">
+            <a [routerLink]="['']">
               <button mat-menu-item>
                 <mat-icon>home</mat-icon>
                 <span>Home</span>
@@ -23,30 +23,24 @@
           </li>
           <ng-container *ngIf="isLoggedIn$ | async">
             <li>
-              <a routerLink="/new-post">
-                <button
-                  [routerLink]="['/articles/new']"
-                  mat-menu-item>
+              <a [routerLink]="['/articles/article/new']">
+                <button mat-menu-item>
                   <mat-icon>local_post_office</mat-icon>
                   <span>New post</span>
                 </button>
               </a>
             </li>
             <li>
-              <a routerLink="/settings">
-                <button
-                  [routerLink]="['/settings']"
-                  mat-menu-item>
+              <a [routerLink]="['/settings']">
+                <button mat-menu-item>
                   <mat-icon>settings</mat-icon>
                   <span>Settings</span>
                 </button>
               </a>
             </li>
             <li>
-              <a routerLink="/">
-                <button
-                  [routerLink]="['/profiles', (currentUser$ | async)!.username]"
-                  mat-menu-item>
+              <a [routerLink]="['/profiles', (currentUser$ | async)!.username]">
+                <button mat-menu-item>
                   <span class="flex items-center">
                     <img
                       [src]="(currentUser$ | async)!.image"
@@ -59,7 +53,7 @@
           </ng-container>
           <ng-container *ngIf="isAnonymous$ | async">
             <li>
-              <a routerLink="auth/login">
+              <a [routerLink]="['auth/login']">
                 <button mat-menu-item>
                   <span>Login</span>
                 </button>

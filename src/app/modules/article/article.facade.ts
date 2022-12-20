@@ -2,13 +2,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BackendErrors } from '@app/_core/models/backend-errors.model';
 import { ArticleInitialValues } from '@article/models/article-initial-values.model';
 import { CreateArticleForm } from '@article/models/create-article-form.model';
 import { ArticleService } from '@article/services/article.service';
 import { CreateArticleFormService } from '@article/services/create-article-form.service';
 import { CreateArticleService } from '@article/services/create-article.service';
+import { ToastStatus } from '@core/enums/toast-status.enum';
+import { BackendErrors } from '@core/models/backend-errors.model';
 import { ArticleService as SharedArticleService } from '@core/services/article.service';
+import { ToastService } from '@core/services/toast.service';
 import { Article } from '@feed/models/article.model';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -24,7 +26,8 @@ export class ArticleFacade {
     private articleService: ArticleService,
     private store: Store,
     private actions$: Actions,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   public getCreateArticleForm$(): Observable<FormGroup<CreateArticleForm>> {
@@ -32,6 +35,7 @@ export class ArticleFacade {
     return this.createArticleFormService.getForm$();
   }
 
+  // NgRx action dispatches //
   public fetchArticleData(slug: string): void {
     this.store.dispatch(ArticleActions.getArticle({ slug }));
   }
@@ -47,6 +51,7 @@ export class ArticleFacade {
   public dispatchCreateArticle$(createArticlePayload: ArticleInitialValues): void {
     this.store.dispatch(ArticleActions.createArticle({ createArticlePayload }));
   }
+  // NgRx action dispatches end //
 
   // NgRx Selectors //
   public getArticle$(): Observable<Article | null> {
@@ -97,9 +102,11 @@ export class ArticleFacade {
       switchMap(({ slug }) => {
         return this.articleService.deleteArticle$(slug).pipe(
           map(() => {
+            this.toastService.showInfoMessage('Article successfully deleted', ToastStatus.SUCCESS, 'Ok');
             return ArticleActions.deleteArticleSuccess();
           }),
           catchError(() => {
+            this.toastService.showInfoMessage('Error during deleting article', ToastStatus.WARN, 'Ok');
             return of(ArticleActions.deleteArticleFailure());
           })
         );
@@ -125,7 +132,6 @@ export class ArticleFacade {
             return ArticleActions.createArticleSuccess({ article });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            console.log(errorResponse);
             return of(ArticleActions.createArticleFailure({ errors: errorResponse.error.errors }));
           })
         );
@@ -137,7 +143,7 @@ export class ArticleFacade {
     return this.actions$.pipe(
       ofType(ArticleActions.createArticleSuccess),
       tap(({ article }): void => {
-        this.router.navigate(['/articles', article.slug]);
+        this.router.navigate(['/articles/article', article.slug]);
       })
     );
   }

@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 
 export const AngularMaterialModules: Array<Type<any>> = [
@@ -21,4 +22,5 @@ export const AngularMaterialModules: Array<Type<any>> = [
   MatProgressSpinnerModule,
   MatChipsModule,
   MatDividerModule,
+  MatSnackBarModule,
 ];

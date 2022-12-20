@@ -9,7 +9,6 @@ import { LoginFormService } from '@auth/services/login-form.service';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { Store } from '@ngrx/store';
-import { ArticleActions } from '@store/article';
 import { fromAuth } from '@store/auth';
 import { login, register } from '@store/auth/auth.actions';
 import { Observable } from 'rxjs';
@@ -22,6 +21,22 @@ export class AuthFacade {
     private store: Store
   ) {}
 
+  public getLoginForm$(): Observable<FormGroup<LoginFormGroup>> {
+    this.loginFormService.buildForm();
+    return this.loginFormService.getForm$();
+  }
+
+  // NgRx Actions //
+  public register(registerPayload: RegisterPayload): void {
+    this.store.dispatch(register({ registerPayload }));
+  }
+
+  public login(loginPayload: LoginPayload): void {
+    this.store.dispatch(login({ loginPayload }));
+  }
+  // NgRx Actions end //
+
+  // NgRx Selectors //
   public getCurrentUser$(): Observable<CurrentUser | null> {
     return this.store.select(fromAuth.currentUser);
   }
@@ -42,17 +57,5 @@ export class AuthFacade {
     this.registerFormService.buildForm();
     return this.registerFormService.getForm$();
   }
-
-  public getLoginForm$(): Observable<FormGroup<LoginFormGroup>> {
-    this.loginFormService.buildForm();
-    return this.loginFormService.getForm$();
-  }
-
-  public register(registerPayload: RegisterPayload): void {
-    this.store.dispatch(register({ registerPayload }));
-  }
-
-  public login(loginPayload: LoginPayload): void {
-    this.store.dispatch(login({ loginPayload }));
-  }
+  // NgRx Selectors end //
 }
