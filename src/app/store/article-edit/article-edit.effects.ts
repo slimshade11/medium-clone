@@ -5,11 +5,11 @@ import { createEffect } from '@ngrx/effects';
 @Injectable()
 export class EditArticleEffects {
   getArticle$ = createEffect(() => {
-    return this.articleFacade.getArticleEdit$();
+    return this.articleFacade.getArticleEditEffect$();
   });
 
   editArticle$ = createEffect(() => {
-    return this.articleFacade.editArticle$();
+    return this.articleFacade.editArticleEffect$();
   });
 
   redirectAfterEditArticle$ = createEffect(

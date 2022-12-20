@@ -30,6 +30,7 @@
         <div class="flex items-center">
           <a [routerLink]="['/articles', article.slug, '/edit']">
             <button
+              (click)="onEditArticle()"
               mat-stroked-button
               class="mr-4">
               Edit Article

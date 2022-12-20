@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ArticleFacade } from '@article/article.facade';
 import { ArticleInitialValues } from '@article/models/article-initial-values.model';
-import { CreateArticleForm } from '@article/models/create-article-form.model';
+import { ArticleForm } from '@article/models/create-article-form.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import { takeUntil, Observable } from 'rxjs';
@@ -23,7 +23,7 @@ export class CreateArticleComponent extends DestroyComponent implements OnInit {
   public isSubmitting$: Observable<boolean> = this.articleFacade.getIsSubmitting$();
   public validationErrors$: Observable<BackendErrors | null> = this.articleFacade.getValidationErrors$();
 
-  public form!: FormGroup<CreateArticleForm>;
+  public form!: FormGroup<ArticleForm>;
 
   constructor(private articleFacade: ArticleFacade) {
     super();
@@ -31,10 +31,10 @@ export class CreateArticleComponent extends DestroyComponent implements OnInit {
 
   ngOnInit(): void {
     this.articleFacade
-      .getCreateArticleForm$()
+      .getArticleForm$()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (form: FormGroup<CreateArticleForm>): void => {
+        next: (form: FormGroup<ArticleForm>): void => {
           this.form = form;
           this.form.patchValue({
             title: initialValues.title,

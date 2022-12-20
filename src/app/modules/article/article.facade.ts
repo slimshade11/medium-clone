@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ArticleInitialValues } from '@article/models/article-initial-values.model';
-import { CreateArticleForm } from '@article/models/create-article-form.model';
+import { ArticleForm } from '@article/models/create-article-form.model';
 import { SaveArticleResponse } from '@article/models/save-article-response.model';
+import { ArticleFormService } from '@article/services/article-form.service';
 import { ArticleService } from '@article/services/article.service';
-import { CreateArticleFormService } from '@article/services/create-article-form.service';
 import { CreateArticleService } from '@article/services/create-article.service';
 import { EditArticleService } from '@article/services/edit-article.service';
 import { ToastStatus } from '@core/enums/toast-status.enum';
@@ -17,13 +17,13 @@ import { Article } from '@feed/models/article.model';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ArticleActions, fromArticle } from '@store/article';
-import { ArticleEditActions } from '@store/article-edit';
+import { ArticleEditActions, fromArticleEdit } from '@store/article-edit';
 import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 
 @Injectable()
 export class ArticleFacade {
   constructor(
-    private createArticleFormService: CreateArticleFormService,
+    private ArticleFormService: ArticleFormService,
     private createArticleService: CreateArticleService,
     private sharedArticleService: SharedArticleService,
     private articleService: ArticleService,
@@ -34,9 +34,9 @@ export class ArticleFacade {
     private editArticleService: EditArticleService
   ) {}
 
-  public getCreateArticleForm$(): Observable<FormGroup<CreateArticleForm>> {
-    this.createArticleFormService.buildForm();
-    return this.createArticleFormService.getForm$();
+  public getArticleForm$(): Observable<FormGroup<ArticleForm>> {
+    this.ArticleFormService.buildForm();
+    return this.ArticleFormService.getForm$();
   }
 
   // NgRx action dispatches //
@@ -80,6 +80,22 @@ export class ArticleFacade {
 
   public getValidationErrors$(): Observable<BackendErrors | null> {
     return this.store.select(fromArticle.validationErrors);
+  }
+
+  public getIsSubmittingArticleEdit$(): Observable<boolean> {
+    return this.store.select(fromArticleEdit.isSubmitting);
+  }
+
+  public getIsLoadingArticleEdit$(): Observable<boolean> {
+    return this.store.select(fromArticleEdit.isLoading);
+  }
+
+  public getArticleEdit$(): Observable<Article | null> {
+    return this.store.select(fromArticleEdit.article);
+  }
+
+  public getValidationErrorsArticleEdit$(): Observable<BackendErrors | null> {
+    return this.store.select(fromArticleEdit.validationErrors);
   }
   // NgRx Selectors end //
 
@@ -153,7 +169,7 @@ export class ArticleFacade {
     );
   }
 
-  public getArticleEdit$() {
+  public getArticleEditEffect$() {
     return this.actions$.pipe(
       ofType(ArticleEditActions.getArticle),
       switchMap(({ slug }) => {
@@ -169,7 +185,7 @@ export class ArticleFacade {
     );
   }
 
-  public editArticle$() {
+  public editArticleEffect$() {
     return this.actions$.pipe(
       ofType(ArticleEditActions.editArticle),
       switchMap(({ slug, articleEditPayload }) => {
