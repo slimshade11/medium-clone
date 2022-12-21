@@ -1,13 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FeedFacade } from '@app/modules/feed/feed.facade';
 import { GetFeedResponse } from '@app/modules/feed/models/get-feed-response.model';
-import { Store } from '@ngrx/store';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
-import { fromFeed } from '@store/feed';
-import { getFeed } from '@store/feed/feed.actions';
 import queryString from 'query-string';
 import { Observable, takeUntil } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment as env } from 'src/environments/environment';
 
 @Component({
   selector: 'mc-feed',
@@ -16,15 +14,16 @@ import { environment } from 'src/environments/environment';
 export class FeedComponent extends DestroyComponent implements OnInit {
   @Input() apiUrl!: string;
 
-  public feed$: Observable<GetFeedResponse | null> = this.store.select(fromFeed.feedData);
-  public isLoading$: Observable<boolean> = this.store.select(fromFeed.isLoading);
-  public error$: Observable<string | null> = this.store.select(fromFeed.error);
+  public feed$: Observable<GetFeedResponse | null> = this.feedFacade.getFeed$();
+  public isLoading$: Observable<boolean> = this.feedFacade.getIsLoading$();
+  public error$: Observable<string | null> = this.feedFacade.getError$();
+  public isLoggedIn$: Observable<boolean | null> = this.feedFacade.getIsLoggedIn$();
 
-  public limit: number = environment.limit;
-  public baseUrl: string = this.getBaseUrlFromEndpoint(this.router);
+  public limit: number = env.limit;
+  public baseUrl: string = this.feedFacade.getBaseUrlFromEndpoint();
   public currentPage: number = 0;
 
-  constructor(private store: Store, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private feedFacade: FeedFacade, private router: Router, private activatedRoute: ActivatedRoute) {
     super();
   }
 
@@ -42,7 +41,7 @@ export class FeedComponent extends DestroyComponent implements OnInit {
     });
     const apiUrlWithParams: string = `${parsedApiUrl.url}?${stringifiedParams}`;
 
-    this.store.dispatch(getFeed({ url: apiUrlWithParams }));
+    this.feedFacade.dispatchGetFeed(apiUrlWithParams);
   }
 
   private listenForCurrentPageChange(): void {
@@ -54,9 +53,7 @@ export class FeedComponent extends DestroyComponent implements OnInit {
     });
   }
 
-  private getBaseUrlFromEndpoint(router: Router): string {
-    return router.url.split('?')[0];
+  public onAddToFavourites(isFavorited: boolean, slug: string): void {
+    this.feedFacade.dispatchAddToFavourites(isFavorited, slug);
   }
-
-  public onAddToFavourites(): void {}
 }

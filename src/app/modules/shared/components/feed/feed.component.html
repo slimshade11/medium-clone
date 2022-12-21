@@ -28,9 +28,10 @@
               </div>
             </div>
             <button
-              (click)="onAddToFavourites()"
+              *ngIf="isLoggedIn$ | async"
+              (click)="onAddToFavourites(article.favorited, article.slug)"
               [color]="article.favorited && 'primary'"
-              [matBadge]="article.favorited ? article.favoritesCount + 1 : article.favoritesCount - 1"
+              [matBadge]="article.favorited ? article.favoritesCount : article.favoritesCount"
               mat-raised-button
               matBadgePosition="before"
               matBadgeColor="accent">

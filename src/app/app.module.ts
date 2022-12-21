@@ -15,6 +15,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ArticleEditEffects } from '@store/article-edit/article-edit.effects';
 import { ArticleEffects } from '@store/article/article.effects';
 import { AuthEffects } from '@store/auth/auth.effects';
+import { AddToFavouritesEffects } from '@store/favourites/favourites.effects';
 import { FeedEffects } from '@store/feed/feed.effects';
 import { PopularTagsEffects } from '@store/popular-tags/popular-tags.effects';
 import { ROOT_REDUCERS } from '@store/root-reducer';
@@ -29,7 +30,14 @@ const MODULES: Array<any> = [
   SharedModule,
 
   //NgRx modules
-  EffectsModule.forRoot([AuthEffects, FeedEffects, PopularTagsEffects, ArticleEffects, ArticleEditEffects]),
+  EffectsModule.forRoot([
+    AuthEffects,
+    FeedEffects,
+    PopularTagsEffects,
+    ArticleEffects,
+    ArticleEditEffects,
+    AddToFavouritesEffects,
+  ]),
   StoreModule.forRoot(ROOT_REDUCERS),
   StoreDevtoolsModule.instrument({
     maxAge: 25,
