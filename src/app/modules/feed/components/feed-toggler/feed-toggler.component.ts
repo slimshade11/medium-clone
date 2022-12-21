@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class FeedTogglerComponent {
   @Input() tagName!: string;
 
-  constructor(private store: Store) {}
-
   public isLoggedIn$: Observable<boolean | null> = this.store.select(fromAuth.isLoggedIn);
+
+  constructor(private store: Store) {}
 }

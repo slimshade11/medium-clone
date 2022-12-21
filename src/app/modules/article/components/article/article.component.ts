@@ -10,7 +10,6 @@ import { Observable, takeUntil } from 'rxjs';
 @Component({
   selector: 'mc-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent extends DestroyComponent implements OnInit {
   public article$: Observable<Article | null> = this.articleFacade.getArticle$();

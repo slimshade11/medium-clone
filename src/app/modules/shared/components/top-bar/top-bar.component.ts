@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'mc-top-bar',
   templateUrl: './top-bar.component.html',
-  styleUrls: ['./top-bar.component.scss'],
 })
 export class TopBarComponent {
   isLoggedIn$: Observable<boolean | null> = this.store.select(fromAuth.isLoggedIn);

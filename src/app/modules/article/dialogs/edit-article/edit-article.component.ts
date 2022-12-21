@@ -39,7 +39,7 @@ export class EditArticleComponent extends DestroyComponent implements OnInit {
       });
   }
 
-  patchValue(form: FormGroup<ArticleForm>, article: Article): void {
+  private patchValue(form: FormGroup<ArticleForm>, article: Article): void {
     const { title, description, body } = article;
     const articleDataToPatch = {
       title,

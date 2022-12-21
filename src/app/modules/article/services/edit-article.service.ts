@@ -14,7 +14,7 @@ export class EditArticleService {
 
   constructor(private http: HttpClient) {}
 
-  editArticle$(slug: string, editArticlePayload: ArticleInitialValues): Observable<Article> {
+  public editArticle$(slug: string, editArticlePayload: ArticleInitialValues): Observable<Article> {
     return this.http
       .put<SaveArticleResponse>(`${this.BASE_URL}/articles/${slug}`, { article: editArticlePayload })
       .pipe(map(({ article }: SaveArticleResponse): Article => article));

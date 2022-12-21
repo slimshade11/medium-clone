@@ -11,7 +11,7 @@ export class ArticleService {
 
   constructor(private http: HttpClient) {}
 
-  deleteArticle$(slug: string): Observable<Object> {
+  public deleteArticle$(slug: string): Observable<Object> {
     return this.http.delete<Object>(`${this.BASE_URL}/articles/${slug}`);
   }
 }

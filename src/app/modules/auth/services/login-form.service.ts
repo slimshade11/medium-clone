@@ -9,7 +9,7 @@ import { FormService } from '@core/services/form.service';
 export class LoginFormService extends FormService {
   get config(): FormGroup<LoginFormGroup> {
     return this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     }) as FormGroup<LoginFormGroup>;
   }

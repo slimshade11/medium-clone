@@ -12,7 +12,7 @@ export const COMPONENTS: Array<Type<unknown>> = [FeedViewComponent, FeedTogglerC
 export const MODULES: Array<Type<unknown>> = [CommonModule, FeedRoutingModule, SharedModule, PopularTagsModule];
 export const STANDALONE: Array<Type<unknown>> = [PaginatorComponent];
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: COMPONENTS,
   imports: [...MODULES, ...STANDALONE],
 })
 export class FeedModule {}

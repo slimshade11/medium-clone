@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Data, RouterOutlet } from '@angular/router';
-import { slider } from '@core/constants/route-animations';
+import { slider } from '@core/utils/route-animations';
 import { Store } from '@ngrx/store';
 import { getCurrentUser } from '@store/auth/auth.actions';
 
@@ -16,7 +16,7 @@ import { getCurrentUser } from '@store/auth/auth.actions';
         class="content overflow-x-hidden">
         <router-outlet #outlet="outlet"></router-outlet>
       </main>
-      <div class="py-4 text-center bg-indigo-900 text-slate-100">&copy; 2022 Medium-clone</div>
+      <div class="py-4 text-center bg-indigo-900 text-slate-100">2022 Medium-clone</div>
     </div>
   `,
   styles: ['.menu {  height: 72px}; .content{min-height: calc(100vh - 72px)}'],

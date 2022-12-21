@@ -23,7 +23,7 @@ import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 @Injectable()
 export class ArticleFacade {
   constructor(
-    private ArticleFormService: ArticleFormService,
+    private articleFormService: ArticleFormService,
     private createArticleService: CreateArticleService,
     private sharedArticleService: SharedArticleService,
     private articleService: ArticleService,
@@ -35,8 +35,8 @@ export class ArticleFacade {
   ) {}
 
   public getArticleForm$(): Observable<FormGroup<ArticleForm>> {
-    this.ArticleFormService.buildForm();
-    return this.ArticleFormService.getForm$();
+    this.articleFormService.buildForm();
+    return this.articleFormService.getForm$();
   }
 
   // NgRx action dispatches //

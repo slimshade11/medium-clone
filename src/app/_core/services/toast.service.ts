@@ -13,7 +13,6 @@ export class ToastService {
       this.snackBar.openFromComponent(ToastComponent, {
         duration: 4000,
         panelClass: 'toast-custom',
-
         data: {
           message,
           status,
