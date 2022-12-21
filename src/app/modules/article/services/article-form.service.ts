@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
-import { ArticleForm } from '@article/models/create-article-form.model';
+import { ArticleForm } from '@app/modules/article/models/article-form.model';
 import { FormService } from '@core/services/form.service';
 
 @Injectable({

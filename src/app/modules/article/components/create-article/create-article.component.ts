@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ArticleForm } from '@app/modules/article/models/article-form.model';
 import { ArticleFacade } from '@article/article.facade';
 import { ArticleInitialValues } from '@article/models/article-initial-values.model';
-import { ArticleForm } from '@article/models/create-article-form.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import { takeUntil, Observable } from 'rxjs';
@@ -59,6 +59,6 @@ export class CreateArticleComponent extends DestroyComponent implements OnInit {
       tagList: this.form.value.tagList!.split(' '),
     };
 
-    this.articleFacade.dispatchCreateArticle$(createArticlePayload);
+    this.articleFacade.dispatchCreateArticle(createArticlePayload);
   }
 }

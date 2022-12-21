@@ -11,7 +11,7 @@ export class ToastService {
   showInfoMessage(message: string, status: string, buttonLabel?: string): void {
     this.ngZone.run(() => {
       this.snackBar.openFromComponent(ToastComponent, {
-        duration: 22222000,
+        duration: 4000,
         panelClass: 'toast-custom',
 
         data: {

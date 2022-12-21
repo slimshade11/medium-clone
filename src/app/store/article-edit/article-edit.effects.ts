@@ -3,7 +3,7 @@ import { ArticleFacade } from '@article/article.facade';
 import { createEffect } from '@ngrx/effects';
 
 @Injectable()
-export class EditArticleEffects {
+export class ArticleEditEffects {
   getArticle$ = createEffect(() => {
     return this.articleFacade.getArticleEditEffect$();
   });

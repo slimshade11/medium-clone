@@ -12,6 +12,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SharedModule } from '@shared/shared.module';
+import { ArticleEditEffects } from '@store/article-edit/article-edit.effects';
 import { ArticleEffects } from '@store/article/article.effects';
 import { AuthEffects } from '@store/auth/auth.effects';
 import { FeedEffects } from '@store/feed/feed.effects';
@@ -26,8 +27,9 @@ const MODULES: Array<any> = [
   BrowserAnimationsModule,
   HttpClientModule,
   SharedModule,
-  //NgRx
-  EffectsModule.forRoot([AuthEffects, FeedEffects, PopularTagsEffects, ArticleEffects]),
+
+  //NgRx modules
+  EffectsModule.forRoot([AuthEffects, FeedEffects, PopularTagsEffects, ArticleEffects, ArticleEditEffects]),
   StoreModule.forRoot(ROOT_REDUCERS),
   StoreDevtoolsModule.instrument({
     maxAge: 25,

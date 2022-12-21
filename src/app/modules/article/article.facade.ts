@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ArticleForm } from '@article/models/article-form.model';
 import { ArticleInitialValues } from '@article/models/article-initial-values.model';
-import { ArticleForm } from '@article/models/create-article-form.model';
 import { SaveArticleResponse } from '@article/models/save-article-response.model';
 import { ArticleFormService } from '@article/services/article-form.service';
 import { ArticleService } from '@article/services/article.service';
@@ -52,8 +52,12 @@ export class ArticleFacade {
     return this.createArticleService.createArticle$(createArticlePayload);
   }
 
-  public dispatchCreateArticle$(createArticlePayload: ArticleInitialValues): void {
+  public dispatchCreateArticle(createArticlePayload: ArticleInitialValues): void {
     this.store.dispatch(ArticleActions.createArticle({ createArticlePayload }));
+  }
+
+  public dispatchEditArticle(slug: string, articleEditPayload: ArticleInitialValues): void {
+    this.store.dispatch(ArticleEditActions.editArticle({ slug, articleEditPayload }));
   }
   // NgRx action dispatches end //
 
@@ -191,6 +195,7 @@ export class ArticleFacade {
       switchMap(({ slug, articleEditPayload }) => {
         return this.editArticleService.editArticle$(slug, articleEditPayload).pipe(
           map((article: Article) => {
+            this.toastService.showInfoMessage('Article successfully edited', ToastStatus.SUCCESS, 'Ok');
             return ArticleEditActions.editArticleSuccess({ article });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -205,8 +210,8 @@ export class ArticleFacade {
   public redirectAfterEditArticle$() {
     return this.actions$.pipe(
       ofType(ArticleEditActions.editArticleSuccess),
-      tap(({ article }: SaveArticleResponse): void => {
-        this.router.navigate(['/articles', article.slug]);
+      tap((): void => {
+        this.router.navigate(['/']);
       })
     );
   }
