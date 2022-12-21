@@ -28,10 +28,13 @@
               </div>
             </div>
             <button
-              mat-button
-              color="primary"
-              class="p-4">
-              ADD TO FAVORITES
+              (click)="onAddToFavourites()"
+              [color]="article.favorited && 'primary'"
+              [matBadge]="article.favorited ? article.favoritesCount + 1 : article.favoritesCount - 1"
+              mat-raised-button
+              matBadgePosition="before"
+              matBadgeColor="accent">
+              {{ article.favorited | favouritesBadgeLabel }}
             </button>
           </div>
           <a

@@ -57,4 +57,6 @@ export class FeedComponent extends DestroyComponent implements OnInit {
   private getBaseUrlFromEndpoint(router: Router): string {
     return router.url.split('?')[0];
   }
+
+  public onAddToFavourites(): void {}
 }

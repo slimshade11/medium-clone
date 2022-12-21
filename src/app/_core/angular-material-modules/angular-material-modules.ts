@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -25,4 +26,5 @@ export const AngularMaterialModules: Array<Type<any>> = [
   MatDividerModule,
   MatSnackBarModule,
   MatDialogModule,
+  MatBadgeModule,
 ];
