@@ -27,8 +27,5 @@ export class ToastComponent {
   public snackBarRef = inject(MatSnackBarRef);
   public toastStatus = ToastStatus;
 
-  constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public toastConfig: ToastConfig,
-    private dialogRef: MatSnackBarRef<ToastComponent>
-  ) {}
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public toastConfig: ToastConfig) {}
 }

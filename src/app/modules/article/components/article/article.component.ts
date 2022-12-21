@@ -18,14 +18,14 @@ export class ArticleComponent extends DestroyComponent implements OnInit {
   public error$: Observable<string | null> = this.articleFacade.getError$();
   public isAuthor$: Observable<boolean> = this.articleFacade.getIsAuthor$();
 
-  private slug: string | null = getSlug();
+  private _slug: string | null = getSlug();
 
   constructor(private articleFacade: ArticleFacade, private dialog: MatDialog) {
     super();
   }
 
   ngOnInit(): void {
-    this.articleFacade.fetchArticleData(this.slug!);
+    this.articleFacade.fetchArticleData(this._slug!);
     this.article$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (article: Article | null): void => {
         this._article = article;
@@ -34,7 +34,7 @@ export class ArticleComponent extends DestroyComponent implements OnInit {
   }
 
   public onDeleteArticle(): void {
-    this.articleFacade.dispatchDeleteArticle$(this.slug!);
+    this.articleFacade.dispatchDeleteArticle$(this._slug!);
   }
 
   public onEditArticle(): void {

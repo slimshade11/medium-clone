@@ -12,27 +12,27 @@ import { environment as env } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  readonly BASE_URL = env.BASE_URL;
+  readonly _BASE_URL = env.BASE_URL;
 
   constructor(private http: HttpClient) {}
 
-  private getUser({ user }: AuthResponse): CurrentUser {
+  private _getUser({ user }: AuthResponse): CurrentUser {
     return user;
   }
 
   public register$(registerPayload: RegisterPayload): Observable<CurrentUser> {
-    return this.http.post<AuthResponse>(`${this.BASE_URL}/users`, registerPayload).pipe(map(this.getUser));
+    return this.http.post<AuthResponse>(`${this._BASE_URL}/users`, registerPayload).pipe(map(this._getUser));
   }
 
   public login$(loginPayload: LoginPayload): Observable<CurrentUser> {
-    return this.http.post<AuthResponse>(`${this.BASE_URL}/users/login`, loginPayload).pipe(map(this.getUser));
+    return this.http.post<AuthResponse>(`${this._BASE_URL}/users/login`, loginPayload).pipe(map(this._getUser));
   }
 
   public getCurrentUser$(): Observable<CurrentUser> {
-    return this.http.get<AuthResponse>(`${this.BASE_URL}/user`).pipe(map(this.getUser));
+    return this.http.get<AuthResponse>(`${this._BASE_URL}/user`).pipe(map(this._getUser));
   }
 
   public updateCurrentUser(updateCurrentUserPayload: UpdateCurrentUserPayload): Observable<CurrentUser> {
-    return this.http.put<AuthResponse>(`${this.BASE_URL}/user`, updateCurrentUserPayload).pipe(map(this.getUser));
+    return this.http.put<AuthResponse>(`${this._BASE_URL}/user`, updateCurrentUserPayload).pipe(map(this._getUser));
   }
 }

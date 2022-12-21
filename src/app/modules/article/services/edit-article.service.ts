@@ -10,13 +10,13 @@ import { environment as env } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class EditArticleService {
-  private readonly BASE_URL: string = env.BASE_URL;
+  private readonly _BASE_URL: string = env.BASE_URL;
 
   constructor(private http: HttpClient) {}
 
   public editArticle$(slug: string, editArticlePayload: ArticleInitialValues): Observable<Article> {
     return this.http
-      .put<SaveArticleResponse>(`${this.BASE_URL}/articles/${slug}`, { article: editArticlePayload })
+      .put<SaveArticleResponse>(`${this._BASE_URL}/articles/${slug}`, { article: editArticlePayload })
       .pipe(map(({ article }: SaveArticleResponse): Article => article));
   }
 }

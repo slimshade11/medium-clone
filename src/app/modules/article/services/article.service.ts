@@ -7,11 +7,11 @@ import { environment as env } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ArticleService {
-  private readonly BASE_URL: string = env.BASE_URL;
+  private readonly _BASE_URL: string = env.BASE_URL;
 
   constructor(private http: HttpClient) {}
 
   public deleteArticle$(slug: string): Observable<Object> {
-    return this.http.delete<Object>(`${this.BASE_URL}/articles/${slug}`);
+    return this.http.delete<Object>(`${this._BASE_URL}/articles/${slug}`);
   }
 }

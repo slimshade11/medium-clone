@@ -8,13 +8,13 @@ import { environment as env } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class PopularTagsService {
-  private readonly BASE_URL: string = env.BASE_URL;
+  private readonly _BASE_URL: string = env.BASE_URL;
 
   constructor(private http: HttpClient) {}
 
   public getPopuplarTags$(): Observable<Array<string>> {
     return this.http
-      .get<GetPopularTagsResponse>(`${this.BASE_URL}/tags`)
+      .get<GetPopularTagsResponse>(`${this._BASE_URL}/tags`)
       .pipe(map(({ tags }: GetPopularTagsResponse): Array<string> => tags));
   }
 }

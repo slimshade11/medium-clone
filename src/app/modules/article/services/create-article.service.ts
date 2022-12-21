@@ -10,12 +10,12 @@ import { environment as env } from 'src/environments/environment.prod';
   providedIn: 'root',
 })
 export class CreateArticleService {
-  private readonly BASE_URL: string = env.BASE_URL;
+  private readonly _BASE_URL: string = env.BASE_URL;
   constructor(private http: HttpClient) {}
 
   public createArticle$(createArticlePayload: ArticleInitialValues): Observable<Article> {
     return this.http
-      .post<SaveArticleResponse>(`${this.BASE_URL}/articles`, { article: createArticlePayload })
+      .post<SaveArticleResponse>(`${this._BASE_URL}/articles`, { article: createArticlePayload })
       .pipe(map(({ article }: SaveArticleResponse): Article => article));
   }
 }

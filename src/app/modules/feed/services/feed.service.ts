@@ -8,11 +8,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class FeedService {
-  private readonly BASE_URL = environment.BASE_URL;
+  private readonly _BASE_URL = environment.BASE_URL;
 
   constructor(private http: HttpClient) {}
 
   public loadFeed$(url: string): Observable<GetFeedResponse> {
-    return this.http.get<GetFeedResponse>(this.BASE_URL + url);
+    return this.http.get<GetFeedResponse>(this._BASE_URL + url);
   }
 }

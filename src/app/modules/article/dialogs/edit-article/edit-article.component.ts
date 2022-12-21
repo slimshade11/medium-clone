@@ -41,14 +41,15 @@ export class EditArticleComponent extends DestroyComponent implements OnInit {
 
   private patchValue(form: FormGroup<ArticleForm>, article: Article): void {
     const { title, description, body } = article;
-    const articleDataToPatch = {
+
+    const dataToPatch = {
       title,
       description,
       body,
       tagList: article.tagList.join(' '),
     };
 
-    form.patchValue(articleDataToPatch);
+    form.patchValue(dataToPatch);
   }
 
   public onSubmit(): void {
