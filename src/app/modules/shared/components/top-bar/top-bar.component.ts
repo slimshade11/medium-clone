@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CurrentUser } from '@app/modules/auth/models/user.model';
 import { Store } from '@ngrx/store';
-import { fromAuth } from '@store/auth';
+import { AuthActions, fromAuth } from '@store/auth';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,4 +14,8 @@ export class TopBarComponent {
   currentUser$: Observable<CurrentUser | null> = this.store.select(fromAuth.currentUser);
 
   constructor(private store: Store) {}
+
+  public onLogout(): void {
+    this.store.dispatch(AuthActions.logout());
+  }
 }

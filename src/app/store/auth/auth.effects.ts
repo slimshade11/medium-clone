@@ -34,5 +34,12 @@ export class AuthEffects {
     return this.authFacade.updateCurrentUserEffect$();
   });
 
+  public logout$ = createEffect(
+    () => {
+      return this.authFacade.logoutEffect$();
+    },
+    { dispatch: false }
+  );
+
   constructor(private authFacade: AuthFacade) {}
 }

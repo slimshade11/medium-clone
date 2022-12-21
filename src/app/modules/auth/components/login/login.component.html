@@ -1,8 +1,8 @@
 <div class="flex items-center justify-center h-full">
   <div class="w-full max-w-lg p-5">
-    <mc-auth-panel>
-      <mc-auth-panel-header>Log in</mc-auth-panel-header>
-      <mc-auth-panel-content>
+    <mc-form-panel>
+      <mc-form-panel-header>Log in</mc-form-panel-header>
+      <mc-form-panel-content>
         <mc-backend-error-messages
           *ngIf="errors$ | async as errors"
           [backendErrors]="errors"
@@ -35,11 +35,11 @@
             class="w-full mt-5"
             type="submit"
             mat-stroked-button>
-            Sign up
+            Log in
           </button>
         </form>
-      </mc-auth-panel-content>
-    </mc-auth-panel>
+      </mc-form-panel-content>
+    </mc-form-panel>
   </div>
 </div>
 

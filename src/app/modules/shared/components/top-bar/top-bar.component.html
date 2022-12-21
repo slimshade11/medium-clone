@@ -50,6 +50,14 @@
                 </button>
               </a>
             </li>
+            <li>
+              <button
+                (click)="onLogout()"
+                mat-menu-item>
+                <mat-icon>power_settings_new</mat-icon>
+                Logout
+              </button>
+            </li>
           </ng-container>
           <ng-container *ngIf="isAnonymous$ | async">
             <li>

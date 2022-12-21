@@ -1,49 +1,53 @@
-<div>
-  <h1>Create article</h1>
-  <div class="flex justify-center items-center">
-    <mc-backend-error-messages
-      *ngIf="validationErrors$ | async as validationErrors"
-      [backendErrors]="validationErrors"
-      class="mt-5">
-    </mc-backend-error-messages>
-    <form
-      [formGroup]="form"
-      (ngSubmit)="onSubmit()"
-      autocomplete="off">
-      <mat-form-field class="mt-2 w-full">
-        <mat-label>Title</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="title" />
-      </mat-form-field>
-      <mat-form-field class="mt-2 w-full">
-        <mat-label>Description</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="description" />
-      </mat-form-field>
-      <mat-form-field class="mt-2 w-full">
-        <mat-label>Body</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="body" />
-      </mat-form-field>
-      <mat-form-field class="mt-2 w-full">
-        <mat-label>Tag list</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="tagList" />
-      </mat-form-field>
-      <button
-        [disabled]="isSubmitting$ | async"
-        class="block w-full"
-        mat-stroked-button>
-        Create Article
-      </button>
-    </form>
+<div class="flex items-center justify-center h-full">
+  <div class="w-full max-w-lg p-5">
+    <mc-form-panel>
+      <mc-form-panel-header>Create article</mc-form-panel-header>
+      <mc-form-panel-content>
+        <mc-backend-error-messages
+          *ngIf="validationErrors$ | async as validationErrors"
+          [backendErrors]="validationErrors"
+          class="mt-5">
+        </mc-backend-error-messages>
+        <form
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          autocomplete="off">
+          <mat-form-field class="mt-2 w-full">
+            <mat-label>Title</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="title" />
+          </mat-form-field>
+          <mat-form-field class="mt-2 w-full">
+            <mat-label>Description</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="description" />
+          </mat-form-field>
+          <mat-form-field class="mt-2 w-full">
+            <mat-label>Body</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="body" />
+          </mat-form-field>
+          <mat-form-field class="mt-2 w-full">
+            <mat-label>Tag list</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="tagList" />
+          </mat-form-field>
+          <button
+            [disabled]="isSubmitting$ | async"
+            class="block w-full"
+            mat-stroked-button>
+            Create Article
+          </button>
+        </form>
+      </mc-form-panel-content>
+    </mc-form-panel>
   </div>
 </div>

@@ -9,10 +9,11 @@ import { ToastConfig } from '@core/models/toast-config.model';
     <div
       [ngClass]="{
         'bg-green-500': toastConfig.status === toastStatus.SUCCESS,
-        'bg-red-500': toastConfig.status === toastStatus.WARN
+        'bg-red-500': toastConfig.status === toastStatus.WARN,
+        'bg-blue-500': toastConfig.status === toastStatus.INFO
       }"
-      class="custom-toast flex justify-between items-center p-4 rounded-xl">
-      <div class="text-lg font-semibold">{{ toastConfig.message }}</div>
+      class="custom-toast flex justify-between items-center p-4 rounded-sm">
+      <div class="text-lg font-semibold mr-7">{{ toastConfig.message }}</div>
       <button
         *ngIf="toastConfig.buttonLabel"
         (click)="snackBarRef.dismissWithAction()"

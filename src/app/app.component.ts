@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Data, RouterOutlet } from '@angular/router';
 import { slider } from '@core/utils/route-animations';
 import { Store } from '@ngrx/store';
-import { getCurrentUser } from '@store/auth/auth.actions';
+import { AuthActions } from '@store/auth';
 
 @Component({
   selector: 'mc-root',
@@ -19,14 +19,14 @@ import { getCurrentUser } from '@store/auth/auth.actions';
       <div class="py-4 text-center bg-indigo-900 text-slate-100">2022 Medium-clone</div>
     </div>
   `,
-  styles: ['.menu {  height: 72px}; .content{min-height: calc(100vh - 72px)}'],
+  styles: ['.menu {  height: 72px}; .content{min-height: calc(100vh - 124px)}'],
   animations: [slider],
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(getCurrentUser());
+    this.store.dispatch(AuthActions.getCurrentUser());
   }
 
   public prepareRoute(outlet: RouterOutlet): Data {

@@ -50,5 +50,8 @@ export const reducer = createReducer(
   }),
   on(AuthActions.updateCurrentUserSuccess, (state, { currentUser }): State => {
     return { ...state, currentUser };
+  }),
+  on(AuthActions.logout, (state): State => {
+    return { ...state, ...initialState, isLoggedIn: false };
   })
 );

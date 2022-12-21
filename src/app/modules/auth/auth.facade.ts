@@ -132,6 +132,7 @@ export class AuthFacade {
       ofType(AuthActions.getCurrentUser),
       switchMap(() => {
         const token: string = this.persistanceService.get(ACCESSTOKEN);
+
         if (!token) {
           return of(AuthActions.getCurrentUserFailure());
         }
@@ -162,6 +163,17 @@ export class AuthFacade {
             return of(AuthActions.updateCurrentUserFailure({ errors: errorResponse.error.errors }));
           })
         );
+      })
+    );
+  }
+
+  logoutEffect$() {
+    return this.actions$.pipe(
+      ofType(AuthActions.logout),
+      tap(() => {
+        this.persistanceService.set(ACCESSTOKEN, '');
+        this.router.navigate(['/']);
+        this.toastService.showInfoMessage('You have been successfully logged out', ToastStatus.INFO, 'Ok');
       })
     );
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { UpdateCurrentUserPayload } from '@app/modules/auth/models/update-current-user-payload.model';
 import { CurrentUser } from '@auth/models/user.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { SettingsForm } from '@settings/models/settings-form.model';
@@ -13,11 +14,10 @@ import { combineLatest, Observable, takeUntil } from 'rxjs';
   styleUrls: ['./settings-form.component.scss'],
 })
 export class SettingsFormComponent extends DestroyComponent implements OnInit {
-  public isSubitting$: Observable<boolean> = this.settingsFacade.getIsSubmitting$();
-  public validationErrors: Observable<BackendErrors | null> = this.settingsFacade.getValidationErrors$();
-  public currentUser$: Observable<CurrentUser> = this.settingsFacade.getCurrentUser$();
-  private _currentUser!: CurrentUser;
+  public isSubmitting$: Observable<boolean> = this.settingsFacade.getIsSubmitting$();
+  public validationErrors$: Observable<BackendErrors | null> = this.settingsFacade.getValidationErrors$();
 
+  public currentUser!: CurrentUser;
   public form!: FormGroup<SettingsForm>;
 
   constructor(private settingsFacade: SettingsFacade) {
@@ -28,27 +28,42 @@ export class SettingsFormComponent extends DestroyComponent implements OnInit {
     combineLatest([this.settingsFacade.getCurrentUser$(), this.settingsFacade.getSettingsForm$()])
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: ([currentUser, form]: [CurrentUser, FormGroup<SettingsForm>]) => {
-          this._currentUser = currentUser;
+        next: ([currentUser, form]: [CurrentUser, FormGroup<SettingsForm>]): void => {
           this.form = form;
-          this.patchValues(this._currentUser, this.form);
+          this.currentUser = currentUser;
+
+          this.patchValues(this.currentUser, this.form);
         },
       });
   }
 
-  private patchValues(currentUser: CurrentUser, form: FormGroup<SettingsForm>): void {
+  private patchValues(currentUser: CurrentUser, settingsForm: FormGroup<SettingsForm>): void {
     const dataToPatch = {
       image: currentUser.image!,
       username: currentUser.username!,
-      bio: currentUser.bio!,
+      bio: currentUser.bio ? currentUser.bio : '-',
       email: currentUser.email!,
       password: '',
     };
 
-    form.patchValue(dataToPatch);
+    settingsForm.patchValue(dataToPatch);
   }
 
   public onSubmit(): void {
-    console.log(this.form.value);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const updateCurrentUserPayload: UpdateCurrentUserPayload = {
+      ...this.currentUser,
+      image: this.form.value.image!,
+      username: this.form.value.username!,
+      bio: this.form.value.bio!,
+      email: this.form.value.email!,
+      password: this.form.value.password!,
+    };
+
+    this.settingsFacade.dispatchUpdateCurrentUser(updateCurrentUserPayload);
   }
 }

@@ -33,3 +33,5 @@ export const updateCurrentUserFailure = createAction(
   ActionTypes.UPDATE_CURRENT_USER_FAILURE,
   props<{ errors: BackendErrors }>()
 );
+
+export const logout = createAction(ActionTypes.LOGOUT);

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'mc-auth-panel-content',
+  selector: 'mc-form-panel-header',
   template: '<ng-content></ng-content>',
 })
-export class AuthPanelContentComponent {}
+export class FormPanelHeaderComponent {}

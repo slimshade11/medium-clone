@@ -33,6 +33,8 @@ export class AuthService {
   }
 
   public updateCurrentUser(updateCurrentUserPayload: UpdateCurrentUserPayload): Observable<CurrentUser> {
-    return this.http.put<AuthResponse>(`${this._BASE_URL}/user`, updateCurrentUserPayload).pipe(map(this._getUser));
+    return this.http
+      .put<AuthResponse>(`${this._BASE_URL}/user`, { user: updateCurrentUserPayload })
+      .pipe(map(this._getUser));
   }
 }

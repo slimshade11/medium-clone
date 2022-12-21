@@ -1,1 +1,65 @@
-<p>settings-form works!</p>
+<ng-container *ngIf="currentUser">
+  <div class="flex items-center justify-center h-full">
+    <div class="w-full max-w-lg p-5">
+      <mc-form-panel>
+        <mc-form-panel-header>Update user: {{ currentUser.username }}</mc-form-panel-header>
+        <mc-form-panel-content>
+          <div class="my-5">
+            <mat-divider></mat-divider>
+          </div>
+          <mc-backend-error-messages
+            *ngIf="validationErrors$ | async as validationErrors"
+            [backendErrors]="validationErrors"
+            class="mt-5">
+          </mc-backend-error-messages>
+          <form
+            [formGroup]="form"
+            (ngSubmit)="onSubmit()">
+            <mat-form-field class="mt-2 w-full">
+              <mat-label>Image</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="image" />
+            </mat-form-field>
+            <mat-form-field class="mt-2 w-full">
+              <mat-label>Username</mat-label>
+              <input
+                matInput
+                formControlName="username" />
+            </mat-form-field>
+            <mat-form-field class="mt-2 w-full">
+              <mat-label>Bio</mat-label>
+              <textarea
+                matInput
+                placeholder="Short bio about you"
+                formControlName="bio">
+              </textarea>
+            </mat-form-field>
+            <mat-form-field class="mt-2 w-full">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                type="email"
+                formControlName="email" />
+            </mat-form-field>
+            <mat-form-field class="mt-2 w-full">
+              <mat-label>New password</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="password" />
+            </mat-form-field>
+
+            <button
+              class="w-full"
+              type="submit"
+              mat-stroked-button>
+              Update
+            </button>
+          </form>
+        </mc-form-panel-content>
+      </mc-form-panel>
+    </div>
+  </div>
+</ng-container>
