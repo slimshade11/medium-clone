@@ -11,8 +11,10 @@ import { AuthService } from '@auth/services/auth.service';
 import { LoginFormService } from '@auth/services/login-form.service';
 import { RegisterFormService } from '@auth/services/register-form.service';
 import { ACCESSTOKEN } from '@core/constants/access-token';
+import { ToastStatus } from '@core/enums/toast-status.enum';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { PersistanceService } from '@core/services/persistance.service';
+import { ToastService } from '@core/services/toast.service';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AuthActions, fromAuth } from '@store/auth';
@@ -30,7 +32,8 @@ export class AuthFacade {
     private actions$: Actions,
     private authService: AuthService,
     private persistanceService: PersistanceService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   public getLoginForm$(): Observable<FormGroup<LoginFormGroup>> {
@@ -144,5 +147,23 @@ export class AuthFacade {
       })
     );
   };
+
+  updateCurrentUserEffect$() {
+    return this.actions$.pipe(
+      ofType(AuthActions.updateCurrentUser),
+      switchMap(({ updateCurrentUserPayload }) => {
+        return this.authService.updateCurrentUser(updateCurrentUserPayload).pipe(
+          map((currentUser: CurrentUser) => {
+            this.toastService.showInfoMessage('User data successfully updated', ToastStatus.SUCCESS, 'Ok');
+            return AuthActions.updateCurrentUserSuccess({ currentUser });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.toastService.showInfoMessage('Error during updating user', ToastStatus.WARN, 'Ok');
+            return of(AuthActions.updateCurrentUserFailure({ errors: errorResponse.error.errors }));
+          })
+        );
+      })
+    );
+  }
   // NgRx Effects end //
 }

@@ -30,5 +30,9 @@ export class AuthEffects {
     return this.authFacade.getCurrentUserEffect$();
   });
 
+  public updateCurrentUser$ = createEffect(() => {
+    return this.authFacade.updateCurrentUserEffect$();
+  });
+
   constructor(private authFacade: AuthFacade) {}
 }

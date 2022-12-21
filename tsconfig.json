@@ -26,6 +26,7 @@
       "@shared/*": ["src/app/modules/shared/*"],
       "@feed/*": ["src/app/modules/feed/*"],
       "@article/*": ["src/app/modules/article/*"],
+      "@settings/*": ["src/app/modules/settings/*"],
       "@popular-tags/*": ["src/app/modules/popular-tags/*"],
       "@standalone/*": ["src/app/standalone/*"],
       "@store/*": ["src/app/store/*"]

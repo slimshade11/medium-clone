@@ -1,17 +1,7 @@
 import { CurrentUser } from '@auth/models/user.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { createReducer, on } from '@ngrx/store';
-import {
-  login,
-  loginFailure,
-  registerSuccess,
-  registerFailure,
-  loginSuccess,
-  register,
-  getCurrentUser,
-  getCurrentUserSuccess,
-  getCurrentUserFailure,
-} from '@store/auth/auth.actions';
+import { AuthActions } from '@store/auth';
 
 export const featureKey = 'auth';
 
@@ -31,31 +21,34 @@ const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(register, (state): State => {
+  on(AuthActions.register, (state): State => {
     return { ...state, isLoading: true, errors: null };
   }),
-  on(registerSuccess, (state, { currentUser }): State => {
+  on(AuthActions.registerSuccess, (state, { currentUser }): State => {
     return { ...state, isLoading: false, isLoggedIn: true, currentUser };
   }),
-  on(registerFailure, (state, { errors }): State => {
+  on(AuthActions.registerFailure, (state, { errors }): State => {
     return { ...state, isLoading: false, errors };
   }),
-  on(login, (state): State => {
+  on(AuthActions.login, (state): State => {
     return { ...state, isLoading: true, errors: null };
   }),
-  on(loginSuccess, (state, { currentUser }): State => {
+  on(AuthActions.loginSuccess, (state, { currentUser }): State => {
     return { ...state, isLoading: false, isLoggedIn: true, currentUser };
   }),
-  on(loginFailure, (state, { errors }): State => {
+  on(AuthActions.loginFailure, (state, { errors }): State => {
     return { ...state, isLoading: false, errors };
   }),
-  on(getCurrentUser, (state): State => {
+  on(AuthActions.getCurrentUser, (state): State => {
     return { ...state, isLoading: true };
   }),
-  on(getCurrentUserSuccess, (state, { currentUser }): State => {
+  on(AuthActions.getCurrentUserSuccess, (state, { currentUser }): State => {
     return { ...state, isLoading: false, isLoggedIn: true, currentUser };
   }),
-  on(getCurrentUserFailure, (state): State => {
+  on(AuthActions.getCurrentUserFailure, (state): State => {
     return { ...state, isLoading: false, isLoggedIn: false, currentUser: null };
+  }),
+  on(AuthActions.updateCurrentUserSuccess, (state, { currentUser }): State => {
+    return { ...state, currentUser };
   })
 );

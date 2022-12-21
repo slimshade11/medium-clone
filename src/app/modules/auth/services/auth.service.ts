@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthResponse } from '@auth/models/auth-response.model';
 import { LoginPayload } from '@auth/models/login-payload.model';
 import { RegisterPayload } from '@auth/models/register-payload.model';
+import { UpdateCurrentUserPayload } from '@auth/models/update-current-user-payload.model';
 import { CurrentUser } from '@auth/models/user.model';
 import { map, Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
@@ -14,6 +15,10 @@ export class AuthService {
   readonly BASE_URL = env.BASE_URL;
 
   constructor(private http: HttpClient) {}
+
+  private getUser({ user }: AuthResponse): CurrentUser {
+    return user;
+  }
 
   public register$(registerPayload: RegisterPayload): Observable<CurrentUser> {
     return this.http.post<AuthResponse>(`${this.BASE_URL}/users`, registerPayload).pipe(map(this.getUser));
@@ -27,7 +32,7 @@ export class AuthService {
     return this.http.get<AuthResponse>(`${this.BASE_URL}/user`).pipe(map(this.getUser));
   }
 
-  public getUser({ user }: AuthResponse): CurrentUser {
-    return user;
+  public updateCurrentUser(updateCurrentUserPayload: UpdateCurrentUserPayload): Observable<CurrentUser> {
+    return this.http.put<AuthResponse>(`${this.BASE_URL}/user`, updateCurrentUserPayload).pipe(map(this.getUser));
   }
 }

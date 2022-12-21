@@ -1,5 +1,6 @@
 import { LoginPayload } from '@auth/models/login-payload.model';
 import { RegisterPayload } from '@auth/models/register-payload.model';
+import { UpdateCurrentUserPayload } from '@auth/models/update-current-user-payload.model';
 import { CurrentUser } from '@auth/models/user.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { createAction, props } from '@ngrx/store';
@@ -19,3 +20,16 @@ export const getCurrentUserSuccess = createAction(
   props<{ currentUser: CurrentUser }>()
 );
 export const getCurrentUserFailure = createAction(ActionTypes.GET_CURRENT_USER_FAILURE);
+
+export const updateCurrentUser = createAction(
+  ActionTypes.UPDATE_CURRENT_USER,
+  props<{ updateCurrentUserPayload: UpdateCurrentUserPayload }>()
+);
+export const updateCurrentUserSuccess = createAction(
+  ActionTypes.UPDATE_CURRENT_USER_SUCCESS,
+  props<{ currentUser: CurrentUser }>()
+);
+export const updateCurrentUserFailure = createAction(
+  ActionTypes.UPDATE_CURRENT_USER_FAILURE,
+  props<{ errors: BackendErrors }>()
+);
