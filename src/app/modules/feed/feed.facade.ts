@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FeedActions, fromFeed } from '@app/store/feed';
+import { ToastStatus } from '@core/enums/toast-status.enum';
 import { ToastService } from '@core/services/toast.service';
+import { Article } from '@feed/models/article.model';
+import { GetFeedResponse } from '@feed/models/get-feed-response.model';
 import { AddToFavouritesService } from '@feed/services/add-to-favourites.service';
 import { FeedService } from '@feed/services/feed.service';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { fromAuth } from '@store/auth';
-import { addToFavourites, addToFavouritesSuccess, addToFavouritesFailure } from '@store/favourites/favourites.actions';
+import { FavouritesActions } from '@store/favourites';
 import { catchError, map, of, switchMap, Observable, iif } from 'rxjs';
-import { Article } from './models/article.model';
-import { GetFeedResponse } from './models/get-feed-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,7 @@ export class FeedFacade {
   }
 
   public dispatchAddToFavourites(isFavourited: boolean, slug: string): void {
-    this.store.dispatch(addToFavourites({ isFavourited, slug }));
+    this.store.dispatch(FavouritesActions.addToFavourites({ isFavourited, slug }));
   }
   // NgRx action dispatches end //
 
@@ -75,7 +76,7 @@ export class FeedFacade {
 
   addToFavouritesEffect$() {
     return this.actions$.pipe(
-      ofType(addToFavourites),
+      ofType(FavouritesActions.addToFavourites),
       switchMap(({ isFavourited, slug }) => {
         return iif(
           () => isFavourited,
@@ -83,10 +84,11 @@ export class FeedFacade {
           this.addToFavouritesService.addToFavourites$(slug)
         ).pipe(
           map((article: Article) => {
-            return addToFavouritesSuccess({ article });
+            return FavouritesActions.addToFavouritesSuccess({ article });
           }),
           catchError(() => {
-            return of(addToFavouritesFailure());
+            this.toastService.showInfoMessage('Error during toggling favourites', ToastStatus.WARN, 'Ok');
+            return of(FavouritesActions.addToFavouritesFailure());
           })
         );
       })

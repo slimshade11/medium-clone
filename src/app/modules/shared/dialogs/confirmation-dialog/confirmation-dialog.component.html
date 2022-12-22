@@ -1,0 +1,15 @@
+<div class="p-6 w-[300px]">
+  <div class="text-xl">{{ label }}</div>
+  <div class="flex mt-[2rem] gap-4">
+    <button
+      (click)="dialogRef.close(false)"
+      mat-stroked-button>
+      No
+    </button>
+    <button
+      (click)="dialogRef.close(true)"
+      mat-stroked-button>
+      Yes
+    </button>
+  </div>
+</div>

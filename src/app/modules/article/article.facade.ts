@@ -40,7 +40,7 @@ export class ArticleFacade {
   }
 
   // NgRx action dispatches //
-  public fetchArticleData(slug: string): void {
+  public dispatchGetArticle(slug: string): void {
     this.store.dispatch(ArticleActions.getArticle({ slug }));
   }
 

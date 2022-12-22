@@ -12,11 +12,11 @@ import { Observable, takeUntil } from 'rxjs';
   templateUrl: './article.component.html',
 })
 export class ArticleComponent extends DestroyComponent implements OnInit {
-  public article$: Observable<Article | null> = this.articleFacade.getArticle$();
-  private _article!: Article | null;
   public isLoading$: Observable<boolean> = this.articleFacade.getIsLoading$();
   public error$: Observable<string | null> = this.articleFacade.getError$();
   public isAuthor$: Observable<boolean> = this.articleFacade.getIsAuthor$();
+  public article$: Observable<Article | null> = this.articleFacade.getArticle$();
+  private _article!: Article | null;
 
   private _slug: string | null = getSlug();
 
@@ -25,7 +25,7 @@ export class ArticleComponent extends DestroyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.articleFacade.fetchArticleData(this._slug!);
+    this.articleFacade.dispatchGetArticle(this._slug!);
     this.article$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (article: Article | null): void => {
         this._article = article;

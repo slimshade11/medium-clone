@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule, Type } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularMaterialModules } from '@core/angular-material-modules/angular-material-modules';
+import { BadgeComponent } from '@shared/components/badge/badge.component';
 import { BannerComponent } from '@shared/components/banner/banner.component';
 import { FeedComponent } from '@shared/components/feed/feed.component';
 import { FormPanelHeaderComponent } from '@shared/components/form-panel/components/auth-panel-header/form-panel-header.component';
@@ -11,10 +12,12 @@ import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
 import { TagListComponent } from '@shared/components/tag-list/tag-list.component';
 import { ToastComponent } from '@shared/components/toast/toast.component';
 import { TopBarComponent } from '@shared/components/top-bar/top-bar.component';
+import { ConfirmationDialogComponent } from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { FavouritesBadgeLabelPipe } from '@shared/pipes/favourites-badge-label.pipe';
 import { PaginatorComponent } from '@standalone/components/paginator/paginator.component';
-import { BadgeComponent } from './components/badge/badge.component';
 
+const IMPORTS: Array<Type<any>> = [RouterModule, CommonModule];
+const STANDALONE: Array<Type<any>> = [PaginatorComponent];
 const COMPONENTS: Array<Type<any>> = [
   TopBarComponent,
   FeedComponent,
@@ -25,13 +28,13 @@ const COMPONENTS: Array<Type<any>> = [
   FormPanelComponent,
   FormPanelHeaderComponent,
   formPanelContentComponent,
+  BadgeComponent,
+  ConfirmationDialogComponent,
 ];
-const IMPORTS: Array<Type<any>> = [RouterModule, CommonModule];
-const STANDALONE: Array<Type<any>> = [PaginatorComponent];
 const PIPES: Array<Type<any>> = [FavouritesBadgeLabelPipe];
 
 @NgModule({
-  declarations: [...COMPONENTS, ...PIPES, BadgeComponent],
+  declarations: [...COMPONENTS, ...PIPES],
   imports: [...AngularMaterialModules, ...IMPORTS, ...STANDALONE],
   exports: [...AngularMaterialModules, ...IMPORTS, ...STANDALONE, ...COMPONENTS, ...PIPES],
 })
