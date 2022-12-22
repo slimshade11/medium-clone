@@ -8,9 +8,8 @@ describe('BackendErrorMessagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ BackendErrorMessagesComponent ]
-    })
-    .compileComponents();
+      imports: [BackendErrorMessagesComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BackendErrorMessagesComponent);
     component = fixture.componentInstance;

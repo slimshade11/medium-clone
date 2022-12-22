@@ -8,9 +8,8 @@ describe('FeedTogglerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FeedTogglerComponent ]
-    })
-    .compileComponents();
+      declarations: [FeedTogglerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FeedTogglerComponent);
     component = fixture.componentInstance;

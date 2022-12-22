@@ -8,9 +8,8 @@ describe('PopularTagsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PopularTagsComponent ]
-    })
-    .compileComponents();
+      declarations: [PopularTagsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PopularTagsComponent);
     component = fixture.componentInstance;

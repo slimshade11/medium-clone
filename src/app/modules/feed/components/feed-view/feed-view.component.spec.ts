@@ -8,9 +8,8 @@ describe('FeedViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FeedViewComponent ]
-    })
-    .compileComponents();
+      declarations: [FeedViewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FeedViewComponent);
     component = fixture.componentInstance;
