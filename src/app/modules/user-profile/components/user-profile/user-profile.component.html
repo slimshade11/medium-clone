@@ -1,1 +1,55 @@
-<p>user-profile works!</p>
+<div
+  *ngIf="(isLoading$ | async) && !userProfile"
+  class="min-h-[470px] flex items-center justify-center">
+  <mc-spinner></mc-spinner>
+</div>
+<ng-container *ngIf="userProfile">
+  <div class="flex justify-center pt-[2rem] relative">
+    <div>
+      <img
+        [src]="userProfile.image"
+        class="block rounded-full w-[25rem]" />
+      <div class="text-center mt-[2.5rem]">
+        <div class="font-semibold text-xl mb-2">
+          {{ userProfile.username }}
+        </div>
+        <small class="block mb-6 text-slate-500">
+          {{ userProfile.bio }}
+        </small>
+        <button mat-stroked-button>Follow User</button>
+      </div>
+    </div>
+    <div
+      *ngIf="isCurrentUserProfile$ | async"
+      class="absolute bottom-0 right-0">
+      <a [routerLink]="['/settings']">
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </a>
+    </div>
+  </div>
+</ng-container>
+<div>
+  <ul class="mt-8 flex gap-4">
+    <li>
+      <a
+        [routerLink]="['/profiles', userProfile?.username]"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <button mat-stroked-button>Posts</button>
+      </a>
+    </li>
+    <li>
+      <a
+        [routerLink]="['/profiles', userProfile?.username, 'favourites']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <button mat-stroked-button>Favourites Posts</button>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="mt-6">
+  <mc-feed [apiUrl]="apiUrl"></mc-feed>
+</div>

@@ -11,5 +11,5 @@ import { Component, Input } from '@angular/core';
   `,
 })
 export class ContainerComponent {
-  @Input() width: string = '1500px';
+  @Input() width: string = '1400px';
 }

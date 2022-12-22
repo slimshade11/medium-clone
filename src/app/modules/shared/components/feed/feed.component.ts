@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { FeedFacade } from '@app/modules/feed/feed.facade';
 import { GetFeedResponse } from '@app/modules/feed/models/get-feed-response.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
@@ -11,7 +11,7 @@ import { environment as env } from 'src/environments/environment';
   selector: 'mc-feed',
   templateUrl: './feed.component.html',
 })
-export class FeedComponent extends DestroyComponent implements OnInit {
+export class FeedComponent extends DestroyComponent implements OnInit, OnChanges {
   @Input() apiUrl!: string;
 
   public feed$: Observable<GetFeedResponse | null> = this.feedFacade.getFeed$();
@@ -23,12 +23,20 @@ export class FeedComponent extends DestroyComponent implements OnInit {
   public baseUrl: string = this.feedFacade.getBaseUrlFromEndpoint();
   public currentPage: number = 0;
 
-  constructor(private feedFacade: FeedFacade, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private feedFacade: FeedFacade, private activatedRoute: ActivatedRoute) {
     super();
   }
 
   ngOnInit(): void {
     this.listenForCurrentPageChange();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const isApiUrlChanged =
+      !changes['apiUrl'].firstChange && changes['apiUrl'].currentValue !== changes['apiUrl'].previousValue;
+    if (isApiUrlChanged) {
+      this.fetchFeed();
+    }
   }
 
   private fetchFeed(): void {

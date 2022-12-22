@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   BASE_URL: 'https://conduit.productionready.io/api',
-  limit: 5,
+  limit: 4,
 };
 
 /*
