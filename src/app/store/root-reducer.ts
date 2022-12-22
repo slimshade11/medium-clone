@@ -7,6 +7,7 @@ import * as fromAuth from '@store/auth';
 import * as fromFeed from '@store/feed';
 import * as fromPopularTags from '@store/popular-tags';
 import * as fromSettings from '@store/settings';
+import * as fromUserProfile from '@store/user-profile';
 
 export interface AppState {
   [fromAuth.featureKey]: fromAuth.State;
@@ -15,6 +16,7 @@ export interface AppState {
   [fromArticle.featureKey]: fromArticle.State;
   [fromArticleEdit.featureKey]: fromArticleEdit.State;
   [fromSettings.featureKey]: fromSettings.State;
+  [fromUserProfile.featureKey]: fromUserProfile.State;
 }
 
 export const ROOT_REDUCERS_TOKEN: string = 'Root reducers token';
@@ -28,5 +30,6 @@ export const ROOT_REDUCERS = new InjectionToken<ActionReducerMap<AppState>>(ROOT
     [fromArticle.featureKey]: fromArticle.reducer,
     [fromArticleEdit.featureKey]: fromArticleEdit.reducer,
     [fromSettings.featureKey]: fromSettings.reducer,
+    [fromUserProfile.featureKey]: fromUserProfile.reducer,
   }),
 });

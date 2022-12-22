@@ -19,6 +19,7 @@ import { AddToFavouritesEffects } from '@store/favourites/favourites.effects';
 import { FeedEffects } from '@store/feed/feed.effects';
 import { PopularTagsEffects } from '@store/popular-tags/popular-tags.effects';
 import { ROOT_REDUCERS } from '@store/root-reducer';
+import { UserProfileEffects } from '@store/user-profile/user-profile.effects';
 
 const COMPONENTS: Array<Type<unknown>> = [AppComponent];
 
@@ -37,6 +38,7 @@ const MODULES: Array<any> = [
     ArticleEffects,
     ArticleEditEffects,
     AddToFavouritesEffects,
+    UserProfileEffects,
   ]),
   StoreModule.forRoot(ROOT_REDUCERS),
   StoreDevtoolsModule.instrument({

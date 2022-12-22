@@ -4,6 +4,7 @@ import { ArticleModule } from '@article/article.module';
 import { AuthModule } from '@auth/auth.module';
 import { FeedModule } from '@feed/feed.module';
 import { SettingsModule } from '@settings/settings.module';
+import { UserProfileModule } from '@user-profile/user-profile.module';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
     loadChildren: (): Promise<any> =>
       import('@article/article.module').then(({ ArticleModule }): ArticleModule => ArticleModule),
     data: {
-      animation: 'isLeft',
+      animation: 'isRight',
     },
   },
   {
@@ -34,6 +35,14 @@ const routes: Routes = [
       import('@settings/settings.module').then(({ SettingsModule }): SettingsModule => SettingsModule),
     data: {
       animation: 'isRight',
+    },
+  },
+  {
+    path: 'profiles',
+    loadChildren: (): Promise<any> =>
+      import('@user-profile/user-profile.module').then(({ UserProfileModule }): UserProfileModule => UserProfileModule),
+    data: {
+      animation: 'isLeft',
     },
   },
 ];
