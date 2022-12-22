@@ -168,7 +168,7 @@ export class ArticleFacade {
     return this.actions$.pipe(
       ofType(ArticleActions.createArticleSuccess),
       tap(({ article }: SaveArticleResponse): void => {
-        this.router.navigate(['/articles/article', article.slug]);
+        this.router.navigate(['/articles', article.slug]);
       })
     );
   }

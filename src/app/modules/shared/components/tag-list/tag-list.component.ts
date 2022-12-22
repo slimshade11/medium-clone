@@ -3,13 +3,14 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'mc-tag-list',
   template: `
-    <ul class="flex items-center ">
-      <li
+    <mat-chip-listbox aria-label="Popular tag selection">
+      <mat-chip
         *ngFor="let tag of tagList"
-        class="mr-2">
-        <mat-chip disabled>{{ tag }}</mat-chip>
-      </li>
-    </ul>
+        class="mr-2"
+        disabled>
+        {{ tag }}
+      </mat-chip>
+    </mat-chip-listbox>
   `,
 })
 export class TagListComponent {

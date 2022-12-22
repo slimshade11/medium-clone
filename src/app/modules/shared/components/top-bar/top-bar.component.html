@@ -1,4 +1,4 @@
-<div class="p-3 flex justify-between">
+<div class="h-[72px] p-3 flex justify-between">
   <a
     [routerLink]="['/']"
     class="text-2xl flex items-center">
@@ -13,7 +13,7 @@
       <ul class="flex items-center justify-center gap-3">
         <ng-container *ngIf="isLoggedIn$ | async">
           <li>
-            <a [routerLink]="['/articles/article/new']">
+            <a [routerLink]="['/articles/new']">
               <button mat-stroked-button>
                 <mat-icon>local_post_office</mat-icon>
                 <span>New post</span>

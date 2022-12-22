@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <section
       [style.max-width]="width"
-      class="mx-auto px-3 xl:px-0">
+      class="main-content mx-auto px-3 xl:px-0">
       <ng-content></ng-content>
     </section>
   `,

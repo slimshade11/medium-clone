@@ -6,19 +6,16 @@ import { AuthActions } from '@store/auth';
 
 @Component({
   selector: 'mc-root',
+  animations: [slider],
   template: `
-    <div class="menu">
-      <mc-top-bar></mc-top-bar>
-    </div>
+    <mc-top-bar></mc-top-bar>
     <main
       [@routeAnimations]="prepareRoute(outlet)"
-      class="content overflow-x-hidden">
+      class="main-content overflow-x-hidden">
       <router-outlet #outlet="outlet"></router-outlet>
     </main>
-    <div class="py-4 text-center bg-indigo-900 text-slate-100">2022 Medium-clone</div>
+    <footer class="py-4 text-center bg-indigo-900 text-slate-100">2022 Medium-clone</footer>
   `,
-  styles: ['.menu {  height: 72px}; .content{min-height: calc(100vh - 124px)}'],
-  animations: [slider],
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store) {}

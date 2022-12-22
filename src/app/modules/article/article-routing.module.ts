@@ -5,11 +5,11 @@ import { CreateArticleComponent } from '@article/components/create-article/creat
 
 const routes: Routes = [
   {
-    path: 'article/new',
+    path: 'new',
     component: CreateArticleComponent,
   },
   {
-    path: 'article/:slug',
+    path: ':slug',
     component: ArticleComponent,
   },
 ];

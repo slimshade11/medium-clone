@@ -1,58 +1,60 @@
-<mat-card>
-  <ng-container *ngIf="isLoading$ | async">
-    <mc-spinner class="py-8"></mc-spinner>
-  </ng-container>
-  <ng-container *ngIf="article$ | async as article">
-    <mat-card-header>
-      <div class="mb-5">
-        <h1 class="text-center">
-          {{ article.title }}
-        </h1>
-      </div>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="flex">
-        <div class="flex items-center mr-8">
-          <img
-            [src]="article.author.image"
-            class="rounded-lg block mr-3 w-[50px]" />
-          <div>
-            <a
-              [routerLink]="['/profiles', article.author.username]"
-              class="block hover:underline">
-              {{ article.author.username }}
-            </a>
-            <a class="block text-slate-400">
-              {{ article.createdAt | date }}
-            </a>
+<mc-container width="700px">
+  <mat-card>
+    <ng-container *ngIf="isLoading$ | async">
+      <mc-spinner class="py-8"></mc-spinner>
+    </ng-container>
+    <ng-container *ngIf="article$ | async as article">
+      <mat-card-header>
+        <div class="mb-5">
+          <h1 class="text-center">
+            {{ article.title }}
+          </h1>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="flex">
+          <div class="flex items-center mr-8">
+            <img
+              [src]="article.author.image"
+              class="rounded-lg block mr-3 w-[50px]" />
+            <div>
+              <a
+                [routerLink]="['/profiles', article.author.username]"
+                class="block hover:underline">
+                {{ article.author.username }}
+              </a>
+              <a class="block text-slate-400">
+                {{ article.createdAt | date }}
+              </a>
+            </div>
+          </div>
+          <div
+            *ngIf="isAuthor$ | async"
+            class="flex items-center">
+            <button
+              (click)="onEditArticle()"
+              mat-stroked-button
+              class="mr-4">
+              Edit Article
+            </button>
+            <button
+              (click)="onDeleteArticle()"
+              color="warn"
+              mat-stroked-button>
+              Delete Article
+            </button>
           </div>
         </div>
-        <div
-          *ngIf="isAuthor$ | async"
-          class="flex items-center">
-          <button
-            (click)="onEditArticle()"
-            mat-stroked-button
-            class="mr-4">
-            Edit Article
-          </button>
-          <button
-            (click)="onDeleteArticle()"
-            color="warn"
-            mat-stroked-button>
-            Delete Article
-          </button>
+        <div class="my-[1rem]">
+          <mat-divider></mat-divider>
         </div>
-      </div>
-      <div class="my-[1rem]">
-        <mat-divider></mat-divider>
-      </div>
-      <div class="text-base">
-        <small class="block text-slate-500">article body</small>
-        <p>{{ article.body }}</p>
-        <small class="block text-slate-500">description</small>
-        <p>{{ article.description }}</p>
-      </div>
-    </mat-card-content>
-  </ng-container>
-</mat-card>
+        <div class="text-base">
+          <small class="block text-slate-500">description</small>
+          <p>{{ article.description }}</p>
+          <small class="block text-slate-500">article body</small>
+          <p>{{ article.body }}</p>
+        </div>
+      </mat-card-content>
+    </ng-container>
+  </mat-card>
+</mc-container>
