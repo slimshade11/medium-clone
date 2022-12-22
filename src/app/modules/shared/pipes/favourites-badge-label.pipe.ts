@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: true,
 })
 export class FavouritesBadgeLabelPipe implements PipeTransform {
-  transform(isFaourited: boolean): unknown {
+  transform(isFaourited: boolean): string {
     return isFaourited ? 'Remove from favourites' : 'Add to favourites';
   }
 }

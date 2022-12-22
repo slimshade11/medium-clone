@@ -13,6 +13,7 @@ import { ToastComponent } from '@shared/components/toast/toast.component';
 import { TopBarComponent } from '@shared/components/top-bar/top-bar.component';
 import { FavouritesBadgeLabelPipe } from '@shared/pipes/favourites-badge-label.pipe';
 import { PaginatorComponent } from '@standalone/components/paginator/paginator.component';
+import { BadgeComponent } from './components/badge/badge.component';
 
 const COMPONENTS: Array<Type<any>> = [
   TopBarComponent,
@@ -30,7 +31,7 @@ const STANDALONE: Array<Type<any>> = [PaginatorComponent];
 const PIPES: Array<Type<any>> = [FavouritesBadgeLabelPipe];
 
 @NgModule({
-  declarations: [...COMPONENTS, ...PIPES],
+  declarations: [...COMPONENTS, ...PIPES, BadgeComponent],
   imports: [...AngularMaterialModules, ...IMPORTS, ...STANDALONE],
   exports: [...AngularMaterialModules, ...IMPORTS, ...STANDALONE, ...COMPONENTS, ...PIPES],
 })

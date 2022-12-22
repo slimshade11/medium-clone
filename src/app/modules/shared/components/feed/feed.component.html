@@ -27,16 +27,12 @@
                 <span class="text-gray-500"> {{ article.createdAt | date }} </span>
               </div>
             </div>
-            <button
+            <mc-badge
               *ngIf="isLoggedIn$ | async"
-              (click)="onAddToFavourites(article.favorited, article.slug)"
-              [color]="article.favorited && 'primary'"
-              [matBadge]="article.favorited ? article.favoritesCount : article.favoritesCount"
-              mat-raised-button
-              matBadgePosition="before"
-              matBadgeColor="accent">
-              {{ article.favorited | favouritesBadgeLabel }}
-            </button>
+              (badgeEmitter)="onAddToFavourites(article.favorited, article.slug)"
+              [isActive]="article.favorited"
+              [count]="article.favoritesCount">
+            </mc-badge>
           </div>
           <a
             [routerLink]="['/articles/article', article.slug]"

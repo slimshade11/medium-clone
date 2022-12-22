@@ -1,0 +1,9 @@
+<button
+  (click)="badgeClick()"
+  [color]="isActive ? 'warn' : 'primary'"
+  [matBadge]="count"
+  matBadgePosition="before"
+  matBadgeColor="accent"
+  mat-icon-button>
+  <mat-icon>favorite</mat-icon>
+</button>
