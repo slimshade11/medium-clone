@@ -1,5 +1,6 @@
 import { BackendErrors } from '@app/_core/models/backend-errors.model';
 import { Article } from '@feed/models/article.model';
+import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer, on } from '@ngrx/store';
 import { ArticleActions } from '@store/article';
 
@@ -40,5 +41,8 @@ export const reducer = createReducer(
   }),
   on(ArticleActions.createArticleFailure, (state, { errors }): State => {
     return { ...state, isLoading: false, validationErrors: errors };
+  }),
+  on(routerNavigationAction, (): State => {
+    return initialState;
   })
 );

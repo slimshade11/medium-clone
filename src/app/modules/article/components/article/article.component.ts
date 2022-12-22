@@ -4,6 +4,7 @@ import { ArticleFacade } from '@article/article.facade';
 import { EditArticleComponent } from '@article/dialogs/edit-article/edit-article.component';
 import { getSlug } from '@core/utils/get-slug';
 import { Article } from '@feed/models/article.model';
+import { ConfirmationDialogComponent } from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import { Observable, takeUntil } from 'rxjs';
 
@@ -34,7 +35,20 @@ export class ArticleComponent extends DestroyComponent implements OnInit {
   }
 
   public onDeleteArticle(): void {
-    this.articleFacade.dispatchDeleteArticle$(this._slug!);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        label: 'Are you sure that you want to delete this article?',
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (confirmation: boolean) => {
+          confirmation && this.articleFacade.dispatchDeleteArticle$(this._slug!);
+        },
+      });
   }
 
   public onEditArticle(): void {

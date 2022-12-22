@@ -1,12 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { getRange } from '@core/utils/get-range';
 
 @Component({
   selector: 'mc-paginator',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
   template: `
     <ul class="flex flex-wrap justify-center max-w-full">
       <li *ngFor="let page of pages">

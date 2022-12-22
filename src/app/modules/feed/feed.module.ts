@@ -6,13 +6,12 @@ import { FeedViewComponent } from '@feed/components/feed-view/feed-view.componen
 import { FeedRoutingModule } from '@feed/feed-routing.module';
 import { PopularTagsModule } from '@popular-tags/popular-tags.module';
 import { SharedModule } from '@shared/shared.module';
-import { PaginatorComponent } from '@standalone/components/paginator/paginator.component';
 
 export const COMPONENTS: Array<Type<unknown>> = [FeedViewComponent, FeedTogglerComponent, FeedTagComponent];
 export const MODULES: Array<Type<unknown>> = [CommonModule, FeedRoutingModule, SharedModule, PopularTagsModule];
-export const STANDALONE: Array<Type<unknown>> = [PaginatorComponent];
+
 @NgModule({
   declarations: COMPONENTS,
-  imports: [...MODULES, ...STANDALONE],
+  imports: [...MODULES],
 })
 export class FeedModule {}

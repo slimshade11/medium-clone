@@ -7,17 +7,15 @@ import { AuthActions } from '@store/auth';
 @Component({
   selector: 'mc-root',
   template: `
-    <div class="max-w-screen-xl mx-auto px-3 xl:px-0">
-      <div class="menu">
-        <mc-top-bar></mc-top-bar>
-      </div>
-      <main
-        [@routeAnimations]="prepareRoute(outlet)"
-        class="content overflow-x-hidden">
-        <router-outlet #outlet="outlet"></router-outlet>
-      </main>
-      <div class="py-4 text-center bg-indigo-900 text-slate-100">2022 Medium-clone</div>
+    <div class="menu">
+      <mc-top-bar></mc-top-bar>
     </div>
+    <main
+      [@routeAnimations]="prepareRoute(outlet)"
+      class="content overflow-x-hidden">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </main>
+    <div class="py-4 text-center bg-indigo-900 text-slate-100">2022 Medium-clone</div>
   `,
   styles: ['.menu {  height: 72px}; .content{min-height: calc(100vh - 124px)}'],
   animations: [slider],
