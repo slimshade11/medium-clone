@@ -14,12 +14,12 @@ export class AddToFavouritesService {
 
   public addToFavourites$(slug: string): Observable<Article> {
     const url: string = this.getUrl(slug);
-    return this.http.post<GetArticleResponse>(url, {}).pipe(map(({ article }) => article));
+    return this.http.post<GetArticleResponse>(url, {}).pipe(map(({ article }): Article => article));
   }
 
   public removeFromFavourites$(slug: string): Observable<Article> {
     const url: string = this.getUrl(slug);
-    return this.http.delete<GetArticleResponse>(url, {}).pipe(map(({ article }) => article));
+    return this.http.delete<GetArticleResponse>(url, {}).pipe(map(({ article }): Article => article));
   }
 
   getUrl(slug: string): string {

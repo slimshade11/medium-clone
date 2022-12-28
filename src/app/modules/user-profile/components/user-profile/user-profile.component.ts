@@ -31,7 +31,7 @@ export class UserProfileComponent extends DestroyComponent implements OnInit {
 
   initializeListeners(): void {
     this._userProfile$.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (userProfile: UserProfile | null) => {
+      next: (userProfile: UserProfile | null): void => {
         this.userProfile = userProfile;
       },
     });

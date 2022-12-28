@@ -31,7 +31,7 @@ export class TopBarComponent extends DestroyComponent {
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (confirmation: boolean) => {
+        next: (confirmation: boolean): void => {
           confirmation && this.store.dispatch(AuthActions.logout());
         },
       });

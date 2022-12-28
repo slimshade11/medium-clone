@@ -4,7 +4,7 @@ import { FeedFacade } from '@app/modules/feed/feed.facade';
 import { GetFeedResponse } from '@app/modules/feed/models/get-feed-response.model';
 import { DestroyComponent } from '@standalone/components/destroy/destroy.component';
 import queryString from 'query-string';
-import { Observable, takeUntil } from 'rxjs';
+import { map, Observable, takeUntil } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 
 @Component({
@@ -42,6 +42,9 @@ export class FeedComponent extends DestroyComponent implements OnInit, OnChanges
   private fetchFeed(): void {
     const offset: number = this.currentPage * this.limit - this.limit;
     const parsedApiUrl: queryString.ParsedUrl = queryString.parseUrl(this.apiUrl);
+
+    console.log(this.apiUrl);
+
     const stringifiedParams: string = queryString.stringify({
       limit: this.limit,
       offset,
@@ -53,12 +56,17 @@ export class FeedComponent extends DestroyComponent implements OnInit, OnChanges
   }
 
   private listenForCurrentPageChange(): void {
-    this.activatedRoute.queryParams.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (params: Params): void => {
-        this.currentPage = Number(params['page'] || '1');
-        this.fetchFeed();
-      },
-    });
+    this.activatedRoute.queryParams
+      .pipe(
+        map((params: Params): string => params['page']),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: (page): void => {
+          this.currentPage = Number(page || '1');
+          this.fetchFeed();
+        },
+      });
   }
 
   public onAddToFavourites(isFavorited: boolean, slug: string): void {

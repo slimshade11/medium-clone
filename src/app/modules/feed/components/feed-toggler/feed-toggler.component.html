@@ -3,7 +3,7 @@
     <ul class="flex items-center gap-3">
       <li *ngIf="isLoggedIn$ | async">
         <a
-          [routerLink]="['/feed']"
+          [routerLink]="['/profiles/' + (currentUser$ | async)!.username]"
           routerLinkActive="active-toggle-btn">
           <button mat-stroked-button>Your Feed</button>
         </a>

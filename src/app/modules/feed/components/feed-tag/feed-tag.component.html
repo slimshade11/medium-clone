@@ -3,7 +3,7 @@
   <div class="flex gap-3">
     <div class="w-4/6">
       <mc-feed-toggler
-        [tagName]="tagName!"
+        [tagName]="(tagName$ | async)!"
         class="block my-4">
       </mc-feed-toggler>
       <mc-feed [apiUrl]="apiUrl"></mc-feed>

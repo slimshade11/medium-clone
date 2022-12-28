@@ -45,7 +45,7 @@ export class ArticleComponent extends DestroyComponent implements OnInit {
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (confirmation: boolean) => {
+        next: (confirmation: boolean): void => {
           confirmation && this.articleFacade.dispatchDeleteArticle$(this._slug!);
         },
       });
