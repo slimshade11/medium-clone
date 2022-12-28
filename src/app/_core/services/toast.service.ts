@@ -9,7 +9,7 @@ export class ToastService {
   constructor(private snackBar: MatSnackBar, private ngZone: NgZone) {}
 
   showInfoMessage(message: string, status: string, buttonLabel?: string): void {
-    this.ngZone.run(() => {
+    this.ngZone.run((): void => {
       this.snackBar.openFromComponent(ToastComponent, {
         duration: 4000,
         panelClass: 'toast-custom',
