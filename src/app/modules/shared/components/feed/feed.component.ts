@@ -42,9 +42,6 @@ export class FeedComponent extends DestroyComponent implements OnInit, OnChanges
   private fetchFeed(): void {
     const offset: number = this.currentPage * this.limit - this.limit;
     const parsedApiUrl: queryString.ParsedUrl = queryString.parseUrl(this.apiUrl);
-
-    console.log(this.apiUrl);
-
     const stringifiedParams: string = queryString.stringify({
       limit: this.limit,
       offset,
@@ -62,7 +59,7 @@ export class FeedComponent extends DestroyComponent implements OnInit, OnChanges
         takeUntil(this.destroy$)
       )
       .subscribe({
-        next: (page): void => {
+        next: (page: string): void => {
           this.currentPage = Number(page || '1');
           this.fetchFeed();
         },
