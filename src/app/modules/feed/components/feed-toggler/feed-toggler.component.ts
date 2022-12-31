@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { fromAuth } from '@store/auth';
+import { FeedFacade } from '@app/modules/feed/feed.facade';
+import { CurrentUser } from '@auth/models/user.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,7 +11,8 @@ import { Observable } from 'rxjs';
 export class FeedTogglerComponent {
   @Input() tagName!: string;
 
-  public isLoggedIn$: Observable<boolean | null> = this.store.select(fromAuth.isLoggedIn);
+  public isLoggedIn$: Observable<boolean | null> = this.feedFacade.getIsLoggedIn$();
+  public currentUser$: Observable<CurrentUser | null> = this.feedFacade.getCurrentUser$();
 
-  constructor(private store: Store) {}
+  constructor(private feedFacade: FeedFacade) {}
 }

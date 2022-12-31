@@ -18,7 +18,7 @@ export const validationErrors = createSelector(
 export const isAuthor = createSelector(
   articleState,
   fromAuth.currentUser,
-  ({ article }: State, currentUser: CurrentUser | null) => {
+  ({ article }: State, currentUser: CurrentUser | null): boolean => {
     if (!article || !currentUser) {
       return false;
     }

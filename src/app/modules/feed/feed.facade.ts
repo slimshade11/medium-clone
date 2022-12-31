@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { fromAuth } from '@store/auth';
 import { FavouritesActions } from '@store/favourites';
 import { catchError, map, of, switchMap, Observable, iif } from 'rxjs';
+import { CurrentUser } from '../auth/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,10 @@ export class FeedFacade {
   }
 
   // NgRx Selectors //
+  public getCurrentUser$(): Observable<CurrentUser | null> {
+    return this.store.select(fromAuth.currentUser);
+  }
+
   public getIsLoading$(): Observable<boolean> {
     return this.store.select(fromFeed.isLoading);
   }
@@ -44,7 +49,6 @@ export class FeedFacade {
   public getIsLoggedIn$(): Observable<boolean | null> {
     return this.store.select(fromAuth.isLoggedIn);
   }
-
   // NgRx Selectors end //
 
   // NgRx action dispatches //
