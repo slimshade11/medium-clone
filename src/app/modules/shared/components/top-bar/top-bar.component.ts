@@ -12,9 +12,9 @@ import { Observable, takeUntil } from 'rxjs';
   templateUrl: './top-bar.component.html',
 })
 export class TopBarComponent extends DestroyComponent {
-  isLoggedIn$: Observable<boolean | null> = this.store.select(fromAuth.isLoggedIn);
-  isAnonymous$: Observable<boolean> = this.store.select(fromAuth.isAnonymous);
-  currentUser$: Observable<CurrentUser | null> = this.store.select(fromAuth.currentUser);
+  public isLoggedIn$: Observable<boolean | null> = this.store.select(fromAuth.isLoggedIn);
+  public isAnonymous$: Observable<boolean> = this.store.select(fromAuth.isAnonymous);
+  public currentUser$: Observable<CurrentUser | null> = this.store.select(fromAuth.currentUser);
 
   constructor(private store: Store, private dialog: MatDialog) {
     super();
@@ -23,7 +23,7 @@ export class TopBarComponent extends DestroyComponent {
   public onLogout(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {
-        label: 'Are you sure to logout?"',
+        label: 'Are you sure to logout?',
       },
     });
 

@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
   selector: 'mc-destroy',
   template: '',
 })
-export class DestroyComponent implements OnDestroy {
-  destroy$: Subject<void> = new Subject<void>();
+export abstract class DestroyComponent implements OnDestroy {
+  protected destroy$: Subject<void> = new Subject<void>();
 
   ngOnDestroy(): void {
     this.destroy$.next();
