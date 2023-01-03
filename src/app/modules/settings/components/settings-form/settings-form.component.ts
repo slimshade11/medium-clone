@@ -11,7 +11,6 @@ import { combineLatest, Observable, takeUntil } from 'rxjs';
 @Component({
   selector: 'mc-settings-form',
   templateUrl: './settings-form.component.html',
-  styleUrls: ['./settings-form.component.scss'],
 })
 export class SettingsFormComponent extends DestroyComponent implements OnInit {
   public isSubmitting$: Observable<boolean> = this.settingsFacade.getIsSubmitting$();
