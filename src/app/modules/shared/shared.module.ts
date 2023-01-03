@@ -7,7 +7,7 @@ import { BannerComponent } from '@shared/components/banner/banner.component';
 import { ContainerComponent } from '@shared/components/container/container.component';
 import { FeedComponent } from '@shared/components/feed/feed.component';
 import { FormPanelHeaderComponent } from '@shared/components/form-panel/components/auth-panel-header/form-panel-header.component';
-import { formPanelContentComponent } from '@shared/components/form-panel/components/form-panel-content/form-panel-content.component';
+import { FormPanelContentComponent } from '@shared/components/form-panel/components/form-panel-content/form-panel-content.component';
 import { FormPanelComponent } from '@shared/components/form-panel/form-panel.component';
 import { PaginatorComponent } from '@shared/components/paginator/paginator.component';
 import { SpinnerComponent } from '@shared/components/spinner/spinner.component';
@@ -27,7 +27,7 @@ const COMPONENTS: Array<Type<any>> = [
   ToastComponent,
   FormPanelComponent,
   FormPanelHeaderComponent,
-  formPanelContentComponent,
+  FormPanelContentComponent,
   BadgeComponent,
   ConfirmationDialogComponent,
   ContainerComponent,

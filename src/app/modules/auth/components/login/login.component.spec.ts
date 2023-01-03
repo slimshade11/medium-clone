@@ -7,7 +7,7 @@ import { LoginComponent } from '@auth/components/login/login.component';
 import { LoginFormGroup } from '@auth/models/login-form.model';
 import { BackendErrors } from '@core/models/backend-errors.model';
 import { FormPanelHeaderComponent } from '@shared/components/form-panel/components/auth-panel-header/form-panel-header.component';
-import { formPanelContentComponent } from '@shared/components/form-panel/components/form-panel-content/form-panel-content.component';
+import { FormPanelContentComponent } from '@shared/components/form-panel/components/form-panel-content/form-panel-content.component';
 import { FormPanelComponent } from '@shared/components/form-panel/form-panel.component';
 import { Observable, of } from 'rxjs';
 
@@ -31,7 +31,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent, FormPanelComponent, FormPanelHeaderComponent, formPanelContentComponent],
+      declarations: [LoginComponent, FormPanelComponent, FormPanelHeaderComponent, FormPanelContentComponent],
       imports: [MatFormFieldModule, MatCardModule],
       providers: [
         {
