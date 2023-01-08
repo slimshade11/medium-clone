@@ -1,4 +1,3 @@
-import { Type } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 
-export const AngularMaterialModules: Array<Type<any>> = [
+export const AngularMaterialModules: Array<any> = [
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule,

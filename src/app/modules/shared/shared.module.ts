@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Type } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularMaterialModules } from '@core/angular-material-modules/angular-material-modules';
 import { BadgeComponent } from '@shared/components/badge/badge.component';
@@ -17,8 +17,8 @@ import { TopBarComponent } from '@shared/components/top-bar/top-bar.component';
 import { ConfirmationDialogComponent } from '@shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { FavouritesBadgeLabelPipe } from '@shared/pipes/favourites-badge-label.pipe';
 
-const IMPORTS: Array<Type<any>> = [RouterModule, CommonModule];
-const COMPONENTS: Array<Type<any>> = [
+const IMPORTS: Array<any> = [RouterModule, CommonModule];
+const COMPONENTS: Array<any> = [
   TopBarComponent,
   FeedComponent,
   TagListComponent,
@@ -33,7 +33,7 @@ const COMPONENTS: Array<Type<any>> = [
   ContainerComponent,
   PaginatorComponent,
 ];
-const PIPES: Array<Type<any>> = [FavouritesBadgeLabelPipe];
+const PIPES: Array<any> = [FavouritesBadgeLabelPipe];
 
 @NgModule({
   declarations: [...COMPONENTS, ...PIPES],

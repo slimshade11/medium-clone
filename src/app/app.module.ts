@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, isDevMode, Type } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +21,7 @@ import { PopularTagsEffects } from '@store/popular-tags/popular-tags.effects';
 import { ROOT_REDUCERS } from '@store/root-reducer';
 import { UserProfileEffects } from '@store/user-profile/user-profile.effects';
 
-const COMPONENTS: Array<Type<unknown>> = [AppComponent];
+const COMPONENTS: Array<any> = [AppComponent];
 
 const MODULES: Array<any> = [
   BrowserModule,
@@ -50,7 +50,7 @@ const MODULES: Array<any> = [
   StoreRouterConnectingModule.forRoot(),
 ];
 const INTERCEPTORS: Array<any> = [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }];
-const SERVICES: Array<Type<unknown>> = [FormBuilder, ArticleFacade];
+const SERVICES: Array<any> = [FormBuilder, ArticleFacade];
 @NgModule({
   declarations: COMPONENTS,
   imports: [...MODULES],
